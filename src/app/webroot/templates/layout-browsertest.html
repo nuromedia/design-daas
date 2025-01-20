@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="/css/test.css" />
+    <script type="text/javascript" src="/js/test.js"></script>
+    <script type="text/javascript" src="/js/login.js"></script>
+  </head>
+  <body onload="onBodyLoad(event, true)">
+    <div id="testid">
+      <label class="fixed-width-element" for="testamount">Amount: </label>
+      <input
+        class="fixed-width-element"
+        type="text"
+        id="amount"
+        value="{{iterations}}"
+      /><br />
+      <label class="fixed-width-element" for="testurl">Url: </label>
+      <input
+        class="fixed-width-element"
+        type="text"
+        id="url"
+        value="/{{url}}"
+      /><br />
+      <input
+        class="fixed-width-element"
+        type="text"
+        id="username"
+        value="johannes.bouche@fb2.fra-uas.de"
+      />
+      <input
+        class="fixed-width-element"
+        type="password"
+        id="password"
+        value="Design.2024"
+      />
+      <input
+        class="fixed-width-element"
+        type="text"
+        id="clientid"
+        value="test-client"
+      />
+      <label for="adminscope">
+        <input
+          type="checkbox"
+          id="adminscope"
+          name="acceptTerms"
+          value="yes"
+          checked
+        />
+        Admin </label
+      ><br />
+      <form id="formid" method="post" onsubmit="onSubmit(event, false)">
+        <input type="hidden" name="id" value="abc" />
+      </form>
+      <div id="results"></div>
+    </div>
+  </body>
+</html>

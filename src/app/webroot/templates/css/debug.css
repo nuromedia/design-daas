@@ -1,0 +1,165 @@
+body,
+html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Main Layout */
+.container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.left-column {
+  width: 32vw;
+  height: 100vh;
+  background-color: #f4f4f4;
+  display: flex;
+  flex-direction: column;
+}
+.tab-section {
+  flex: 1;
+  overflow: auto;
+}
+
+.result-section {
+  height: 42%;
+  background-color: #d4d4d4;
+  padding: 10px;
+}
+
+.right-column {
+  width: 68vw;
+  height: 100vh;
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
+}
+
+.top-row {
+  width: auto;
+  height: 0px;
+  background-color: #e74c3c;
+}
+
+.bottom-row {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  /* background-color: #2ecc71; */
+  justify-content: center;
+  align-items: center;
+}
+
+.padbox {
+  text-align: center;
+  padding: 5px;
+}
+
+/* Tabbing */
+.tab-links {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tab-links button {
+  flex: 1;
+  padding: 1px;
+  border: none;
+  background-color: #ddd;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.tab-links button.active {
+  background-color: #bbb;
+}
+
+.tab-content {
+  display: none;
+  flex: 1;
+  overflow: auto;
+  padding: 0;
+  margin: 0;
+  min-height: 100px;
+}
+
+.tab-content.active {
+  display: block;
+  flex: 0;
+  overflow: none;
+  width: 99%;
+}
+
+.text-short {
+  max-width: 75px;
+}
+.text-medium {
+  max-width: 150px;
+}
+
+#viewer-wrapper {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+#viewer {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  /* background: lightgray; */
+  left: 0;
+  width: 100%;
+  overflow: auto;
+}
+
+/* Controls */
+textarea {
+  resize: none;
+  margin-bottom: 10px;
+}
+
+table {
+  text-align: center;
+  line-height: 1.5;
+}
+th,
+td {
+  padding: 3px;
+}
+td {
+  border: 1px solid black;
+  margin: 10px;
+}
+button {
+  width: 150px;
+  min-height: 25px;
+}
+input[type="text"] {
+  width: 250px;
+  text-align: center;
+}
+select {
+  width: 100px;
+  text-align: center;
+}
+#testing {
+  text-align: center;
+}
+#viewerurl {
+  width: 90%;
+  text-align: center;
+}
+#dropdownID {
+  width: 250px;
+}

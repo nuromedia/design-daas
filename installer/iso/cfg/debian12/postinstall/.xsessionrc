@@ -1,0 +1,7 @@
+#!/bin/bash
+
+qtile start
+/usr/bin/Xtigervnc :0 -rfbport 5900 -localhost=0 \
+    -SecurityTypes VncAuth,TLSVnc -PasswordFile /tiger-vnc-password.txt \
+    -geometry 1920x1080 -desktop localhost:0 \
+    -depth 32 -auth /root/.Xauthority

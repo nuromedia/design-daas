@@ -1,0 +1,453 @@
+:root {
+  --view-offset-left: 6px;
+  --view-offset-right: 0px;
+  --view-offset-top: 6px;
+  --view-offset-bottom: 0px;
+  --view-width: calc(100% - var(--view-offset-left) - var(--view-offset-right));
+  --view-height: calc(
+    100% - var(--view-offset-top) - var(--view-offset-bottom)
+  );
+  --max-width: calc(100%);
+  --max-height: calc(100%);
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: white;
+}
+
+.topbar {
+  position: fixed;
+  top: -46px;
+  left: 6px;
+  width: 100%;
+  padding: 2px;
+  background-color: #0e1351;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+.topbar:hover {
+  top: 0px;
+}
+.topbar-hover {
+  top: 0px;
+  transition: background-color 0.3s ease;
+}
+.topbar-blink {
+  animation: blink-animation 1s steps(5, start) infinite;
+}
+@keyframes blink-animation {
+  to {
+    background: red;
+    transition: background 0.5s ease;
+  }
+}
+.topbar-buttons {
+  width: 100%;
+  height: 20px;
+  background-color: #0d6efd;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+
+#topbar-buttons button {
+  margin: 4px 4px;
+  height: 15px;
+  font-size: 0.8em;
+  line-height: 0.8em;
+  background-color: #444;
+  color: white;
+  background: #444;
+}
+
+.topbar-buttons button:hover {
+  background-color: #777;
+}
+#topbar-label {
+  margin: 2px 0px 6px;
+  display: flex;
+  font-size: 0.8em;
+  line-height: 0.8em;
+  font-weight: bold;
+  text-align: center;
+  justify-content: center;
+  background-color: #0d6efd;
+  color: #fff;
+  width: 90%;
+  height: 15px;
+}
+.mainview {
+  margin-top: var(--view-offset-top);
+  margin-bottom: var(--view-offset-bottom);
+  margin-left: var(--view-offset-left);
+  margin-right: var(--view-offset-right);
+  padding: 0px;
+  display: block;
+  justify-content: center;
+  align-items: center;
+  width: var(--view-width);
+  height: var(--view-height);
+  overflow: hidden;
+  background-color: #f0f0f0;
+  transition:
+    width 0.5s ease,
+    height 0.5s ease;
+  cursor: none;
+}
+.mainview-localcursor {
+  cursor: pointer;
+}
+.view {
+  display: none;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* cursor: pointer; */
+}
+
+#status-view {
+  display: flex;
+  z-index: 3;
+}
+#client-view {
+  max-width: calc(
+    var(--view-width) + var(--view-offset-left) + var(--view-offset-right)
+  );
+  max-height: calc(
+    var(--view-height) + var(--view-offset-top) + var(--view-offset-bottom)
+  );
+  overflow: hidden;
+  /* cursor: pointer; */
+}
+.sidebar {
+  position: fixed;
+  top: 0px;
+  left: -259px;
+  /* left: 0px; */
+  width: 255px;
+  height: calc(100% - 0px);
+  z-index: 3;
+  background-color: #0e1351;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  transition: left 0.3s;
+}
+#instance-namediv {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin: 5px;
+  background: #777;
+  justify-content: center;
+  text-align: center;
+}
+#instance-namediv label {
+  margin: 3px auto;
+  width: 90%;
+  color: black;
+  background: #999;
+  border: 1px solid black;
+  font-size: 0.6em;
+}
+#instance-resolution {
+  background: #777;
+  width: 90%;
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  border: 1px solid black;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+}
+#instance-resolution button,
+select {
+  margin: 5px auto 0px auto;
+  width: 80%;
+  justify-content: center;
+  text-align: center;
+}
+.checkbox-wrap {
+  justify-content: left;
+}
+.sidebar:hover {
+  left: 0;
+}
+
+.sidebar #instance-state {
+  margin: 5px auto;
+  /* padding: 5px; */
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background: #777;
+  border: 1px solid black;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+}
+#instance-state #instance-available,
+#instance-settings,
+#instance-viewtype,
+#instance-connected {
+  margin: 5px;
+  height: 20px;
+  width: 20px;
+  border-radius: 20px;
+  border: 1px solid black;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+}
+#instance-mode,
+#instance-mode-extended {
+  display: flex;
+  flex-direction: column;
+  margin: 5px auto;
+  min-height: 20px;
+  width: 90%;
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+  background: #777;
+  border: 1px solid black;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.instance-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+.instance-wrapper label {
+  text-align: center;
+  width: 6em;
+}
+
+#overlay-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #ddd;
+  color: black;
+  font-size: 2em;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  pointer-events: none;
+  z-index: 2;
+  transition: left 1s;
+}
+#overlay-container button {
+  display: block;
+  margin-bottom: 15px;
+  text-align: center;
+  font-size: 1em;
+}
+
+#overlay-container > label {
+  display: block;
+  text-align: center;
+  margin-bottom: 15px;
+}
+#overlayText {
+  padding: 10px;
+  border-radius: 20px;
+  background: rgba(200, 200, 200, 0.3);
+  white-space: pre-line;
+  text-align: center;
+  margin-bottom: 10px;
+}
+#overlayHint {
+  border-radius: 20px;
+  white-space: pre-line;
+  text-align: center;
+  color: blue;
+  margin-bottom: 10px;
+  transition: opacity 1s ease-in;
+}
+
+#overlayBorder {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: white;
+  padding: 20px;
+  background: white;
+  border: 1px solid black;
+  border-radius: 20px;
+  box-shadow: 10px 10px 20px rgba(123, 123, 123, 0.8);
+}
+
+#debug-view {
+  background-color: #0e1351;
+  display: flex;
+  flex-direction: column;
+}
+#debug-upper-div {
+  background-color: #0e1351;
+  height: 75%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+#debug-upper-right {
+  background-color: #0e1351;
+  height: 100%;
+  width: 100%;
+  background: #777;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+#debug-upper-left {
+  background-color: #0e1351;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+#debug-lower-div {
+  margin: 10px;
+  background-color: #0e1351;
+  height: 25%;
+  width: 96%;
+  display: block;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+#debug-buttons {
+  margin-top: 100px;
+  width: 100%;
+  height: 100px;
+  text-align: center;
+  justify-content: center;
+  background-color: #0e1351;
+}
+#debug-buttons button {
+  margin-top: 10px;
+  width: 80%;
+  height: 30px;
+  text-align: center;
+  justify-content: center;
+  border: 1px solid black;
+  box-sizing: border-box;
+  border-radius: 10px;
+  box-shadow: 5px 5px 10px rgba(180, 180, 180, 0.4);
+}
+#logdiv {
+  margin: 30px;
+  min-width: 100%;
+  background: white;
+  min-height: 100px;
+  text-align: center;
+  justify-content: center;
+  border: 1px solid black;
+  box-sizing: border-box;
+  box-shadow: 5px 5px 10px rgba(180, 180, 180, 0.4);
+}
+#printer-files {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #0e1351;
+  text-align: center;
+}
+#printer-files-head {
+  color: white;
+}
+#printer-files-listdiv {
+  margin: 10px;
+  width: 85%;
+  height: 85%;
+  background: #ddd;
+  border: 1px solid black;
+  box-sizing: border-box;
+  border-radius: 10px;
+  box-shadow: 5px 5px 10px rgba(180, 180, 180, 0.4);
+}
+.printer-listelement,
+.log-listelement {
+  background: white;
+  width: 100%;
+  display: flex;
+}
+.printer-listelement-odd,
+.log-listelement-odd {
+  width: 100%;
+  display: flex;
+  background: #ddd;
+}
+.guac-div-viewer {
+  z-index: 5;
+  /* cursor: pointer; */
+}
+.guac-div-viewer:hover {
+  z-index: 5;
+}
+.guac-canvas-viewer {
+  z-index: 5;
+  /* cursor: pointer; */
+}
+.hoverborder {
+  border: 1px solid gray;
+  box-sizing: border-box;
+}
+.hoverborder:hover {
+  border: 1px solid black;
+  box-sizing: border-box;
+  transition: border 0.3s ease;
+}
+.dropshadow {
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+}
+.dropshadow:hover {
+  box-shadow: 5px 5px 10px rgba(10, 0, 0, 0.5);
+  transition: box-shadow 0.5s ease;
+}
+.noscroll-main {
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.noscroll-client {
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.oversized {
+  margin: 0px;
+  position: absolute;
+  top: 6px;
+  left: 6px;
+}

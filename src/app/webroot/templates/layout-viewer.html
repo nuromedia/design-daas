@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guacamole Viewer</title>
+    <script
+      src="https://kit.fontawesome.com/5f693a3ea2.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{params_host}}/static/viewer_styles.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{params_host}}/static/viewer_styles_status.css"
+    />
+    <script src="{{params_host}}/static/guacamole.js"></script>
+    <script src="{{params_host}}/static/viewer_config.js"></script>
+    <script src="{{params_host}}/static/viewer_guac.js"></script>
+    <script src="{{params_host}}/static/viewer_bootstrap.js"></script>
+    <script src="{{params_host}}/static/viewer_tools.js"></script>
+    <script src="{{params_host}}/static/viewer_layout.js"></script>
+    <script src="{{params_host}}/static/viewer_extensions.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="overlay" id="overlay-container"></div>
+      <div class="sidebar" id="sidebar-container"></div>
+      <div class="topbar" id="topbar-container"></div>
+      <div class="mainview dropshadow" id="mainview-container"></div>
+    </div>
+    <script>
+      window.onload = function () {
+        var cfgViewer = new DaasConfigViewer(
+          "{{params_viewer.log_enabled}}",
+          "{{params_viewer.log_resize}}",
+          "{{params_viewer.log_summary}}",
+          "{{params_viewer.log_tunnel}}",
+          "{{params_viewer.log_client}}",
+          "{{params_viewer.log_switcher}}",
+          "{{params_viewer.log_watcher}}",
+          "{{params_viewer.observer_ms}}",
+          "{{params_viewer.fetch_ms}}",
+          "{{params_viewer.check_ms}}",
+          "{{params_viewer.reconnect_ms}}",
+          "{{params_viewer.reconnect_default_ms}}",
+          "{{params_viewer.reconnect_delayed_ms}}",
+          "{{params_viewer.reconnect_max}}",
+          "{{params_viewer.reconnect_enabled}}",
+          false,
+        );
+        var cfgInst = new DaasConfigInst(
+          cfgViewer,
+          Guacamole,
+          "viewer-outer",
+          "viewer-inner",
+          "{{ params_inst.backend_url }}",
+          "{{ params_inst.tunnel_url }}",
+          "{{ params_inst.instance }}",
+          "{{ params_inst.owner }}",
+          "{{ params_inst.token }}",
+          "{{ params_inst.referrer }}",
+          "{{ params_inst.contype }}",
+          "{{ params_inst.resolution }}",
+          "{{ params_inst.resize }}",
+          "{{ params_inst.scale }}",
+          "{{ params_inst.dpi }}",
+          "{{ params_inst.force_lossless }}",
+          "{{ params_inst.colors }}",
+          "{{ params_inst.is_vm }}",
+          "{{ params_inst.is_windows }}",
+        );
+        console.log("All resources are loaded.");
+        async function main() {
+          var strap = new BootStrapper(cfgViewer, cfgInst);
+          await strap.init();
+        }
+        main();
+      };
+    </script>
+  </body>
+</html>

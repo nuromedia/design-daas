@@ -1,0 +1,2633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Debug</title>
+  <link rel="stylesheet" href="{{ url_for('routes_testing.cssdebug', _external=True) }}">
+  <script src="{{url_for('routes_testing.jsdebug', _external=True) }}"></script>
+</head>
+<body>
+  <datalist id="defaultobjectlist">
+    <option value="" disabled selected>Select an option</option>
+    <option value="vmWin10">vmWin10</option>
+    <option value="templateWin10">templateWin10</option>
+    <option value="vmWin11">vmWin11</option>
+    <option value="templateWin11">templateWin11</option>
+    <option value="randid_deb12vm">randid_deb12vm</option>
+    <option value="templateDeb12">templateDeb12</option>
+    <option value="vmDeb12">vmDeb12</option>
+    <option value="contx11">contx11</option>
+    <option value="contWine">contWine</option>
+  </datalist>
+  <datalist id="defaultapplist">
+    <!-- <option value="" disabled selected>Selsh-debian12 option</option> -->
+    <option value="win10CalcApp">win10CalcApp</option>
+    <option value="win11CalcApp">win11CalcApp</option>
+    <option value="deb12CalcApp">deb12CalcApp</option>
+    <option value="win10SpreadsheetApp">win10SpreadsheetApp</option>
+    <option value="win11SpreadsheetApp">win11SpreadsheetApp</option>
+    <option value="deb12SpreadsheetApp">deb12SpreadsheetApp</option>
+    <option value="win10TexteditApp">win10TexteditApp</option>
+    <option value="win11TexteditApp">win11TexteditApp</option>
+    <option value="deb12TexteditApp">deb12TexteditApp</option>
+    <option value="win10BrowserApp">win10BrowserApp</option>
+    <option value="win11BrowserApp">win11BrowserApp</option>
+    <option value="deb12BrowserApp">deb12BrowserApp</option>
+    <!-- <option value="win10DummyApp">win10DummyApp</option> -->
+    <!-- <option value="win11DummyApp">win11DummyApp</option> -->
+    <!-- <option value="deb12DummyApp">deb12DummyApp</option> -->
+    <!-- <option value="dockerDummyApp">dockerDummyApp</option> -->
+    <option value="dockerBrowserApp">dockerBrowserApp</option>
+    <option value="dockerCalcApp">dockerCalcApp</option>
+    <option value="dockerSpreadsheetApp">dockerSpreadsheetApp</option>
+    <option value="dockerTexteditApp">dockerTexteditApp</option>
+    <option value="wineEmail">wineEmail</option>
+  </datalist>
+  <datalist id="defaultfilelist">
+    <option value="" disabled selected>Select an option</option>
+    <option value="win10DummyFile">win10DummyFile</option>
+    <option value="win11DummyFile">win11DummyFile</option>
+    <option value="deb12DummyFile">deb12DummyFile</option>
+  </datalist>
+  <datalist id="filesystemcommands">
+    <option value="" disabled selected>Select an option</option>
+    <option value="mount">mount</option>
+    <option value="unmount">unmount</option>
+  </datalist>
+  <datalist id="applist">
+    <option value="calc.exe">calc.exe</option>
+    <option value="xterm htop">htop</option>
+    <option value="/usr/bin/galculator">galculator</option>
+    <option value='C:/Program Files/Microsoft Office/root/Office16/Excel.exe'>Excel</option>
+    <option value='C:/Program Files/Notepad++/notepad++.exe'>Notepad++</option>
+    <option value="libreoffice">Libreoffice</option>
+    <option value='C:/Program Files/Mozilla Firefox/firefox.exe'>Firefox</option>
+    <option value='firefox-esr'>Firefox-esr</option>
+  </datalist>
+  <datalist id="appinstaller">
+    <option value="apt">apt</option>
+  </datalist>
+  <datalist id="appinstallerargs">
+    <option value="install galculator">galculator</option>
+  </datalist>
+  <datalist id="arglistresize">
+    <option value="1920x1080">1920x1080</option>
+    <option value="1280x800">1280x800</option>
+    <option value="1024x768">1024x768</option>
+  </datalist>
+  <datalist id="arglistinstall">
+    <option value='htop'>htop</option>
+    <option value='Notepad++.Notepad++'>Notepad++
+    </option>
+  </datalist>
+  <datalist id="arglistcontype">
+    <option value="sysvnc">System VNC (Proxmox default)</option>
+    <option value="instvnc">Instance VNC (Docker default)</option>
+    <option value="rdp">RDP (Windows only)</option>
+  </datalist>
+  <datalist id="arglistcontypedocker">
+    <option value="instvnc">Instance VNC (Docker default)</option>
+  </datalist>
+  <datalist id="arglistviewmodes">
+    <option value="none">Scale nothing</option>
+    <option value="up">Scale up</option>
+    <option value="down">Scale down</option>
+    <option value="both">Scale both</option>
+  </datalist>
+
+  <div class="container">
+    <div id="navcolumn" class="left-column">
+      <!-- Tabs in the left column -->
+      <div class="tab-section">
+        <div class="tab-links">
+          <button onclick="showTab('instances', 'left')" class="active">Inst</button>
+          <button onclick="showTab('vm', 'left')">VM</button>
+          <button onclick="showTab('docker', 'left')">Dck</button>
+          <button onclick="showTab('node', 'left')">Node</button>
+          <button onclick="showTab('inst', 'left')">Inst</button>
+          <button onclick="showTab('phase', 'left')">Phase</button>
+          <button onclick="showTab('auth', 'left')">Auth</button>
+          <button onclick="showTab('view', 'left')">View</button>
+          <button onclick="showTab('files', 'left')">Files</button>
+          <button onclick="showTab('apps', 'left')">App</button>
+          <button onclick="showTab('info', 'left')">Info</button>
+          <button onclick="showTab('tasks', 'left')">Tasks</button>
+          <button onclick="showTab('mon', 'left')">Mon</button>
+          <button onclick="showTab('limits', 'left')">Lim</button>
+          <button onclick="showTab('admin', 'left')">Adm</button>
+          <button onclick="showTab('db', 'left')">DB</button>
+        </div>
+        <div id="instances" class="tab-content active">
+          <div class="padbox" style="text-align: left;">
+            Connections: <select id="dashboard-connections" name="Connections">
+                <option value="">None</option>
+            </select>
+          </div>
+          <div class="padbox" style="text-align: left;">
+            Instances: <select id="dashboard-instances" name="Instances">
+            </select>
+          </div>
+          <div class="padbox" style="text-align: left;">
+            Objs: <select id="dashboard-objects" name="Objects">
+            </select>
+          </div>
+          <div class="padbox" style="text-align: left;">
+            Envs: <select id="dashboard-environments" name="Environments">
+            </select>
+          </div>
+          <div class="padbox" style="text-align: left;">
+            Apps: <select id="dashboard-apps" name="Apps">
+            </select>
+          </div>
+        </div>
+
+        <!-- Tab Contents for Left Column -->
+        <div id="docker" class="tab-content">
+          <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+              <tr>
+                <th>Action</th>
+                <th>Param_Names</th>
+                <th>Param_Values</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Daemon info -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/container/daemon_info', 'POST', 'docker-daemon-info')">daemon_info</button>
+                </td>
+                <td>
+                </td>
+                <td>
+                  <form id="docker-daemon-info">
+                  </form>
+                </td>
+              </tr>
+              <!-- image inspect -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/container/image_inspect', 'POST', 'docker-image-inspect')">image_inspect</button>
+                </td>
+                <td>
+                  NAME<br />
+                </td>
+                <td>
+                  <form id="docker-image-inspect">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- image List -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/container/image_list', 'POST', 'docker-image-list')">image_list</button>
+                </td>
+                <td>
+                  NAME<br />
+                </td>
+                <td>
+                  <form id="docker-image-list">
+                    <input type="checkbox" name="onlyuser" checked />User
+                    <input type="checkbox" name="onlydaas" />DaaS
+                    <input type="checkbox" name="detailed" />Details
+                  </form>
+                </td>
+              </tr>
+              <!-- image Create (DOCKERFILE)-->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/container/image_create', 'POST', 'docker-image-create')">image_create</button>
+                </td>
+                <td>
+                  Object <br />
+                  NAME <br />
+                  FILE <br />
+                  CEPH <br />
+                  CONTYPE <br />
+                  RESOLUTION <br />
+                  RESIZE <br />
+                  SCALE <br />
+                </td>
+                <td>
+                  <form id="docker-image-create">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                    <input type="text" name="name" value="testname"><br />
+                    <input type="file" name="dockerfile" id="docker-dockerfile-upload"><br />
+                    <input type="text" name="cores" size="7" value="2"><br />
+                    <input type="text" name="memsize" size="7" value="2048"><br />
+                    <input type="text" name="disksize" size="7" value="8"><br />
+                    <input type="checkbox" name="ceph_public" />Public
+                    <input type="checkbox" name="ceph_shared" />Shared
+                    <input type="checkbox" name="ceph_user" />Shared
+                    <input list="arglistcontypedocker" name="viewer_contype"><br />
+                    <input list="arglistresize" name="viewer_resolution"><br />
+                    <input list="arglistviewmodes" name="viewer_resize"><br />
+                    <input type="checkbox" name="viewer_scale" />Scale
+                  </form>
+                </td>
+              </tr>
+              <!-- image Build (ROOT) -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/container/image_create_root', 'POST', 'docker-image-create-root')">image_create_root</button>
+                </td>
+                <td>
+                  Object <br />
+                  NAME <br />
+                  IMAGE <br />
+                  CEPH <br />
+                  CONTYPE <br />
+                  RESOLUTION <br />
+                  RESIZE <br />
+                  SCALE <br />
+                </td>
+                <td>
+                  <form id="docker-image-create-root">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                    <input type="text" name="name" value="testname"><br />
+                    <select id="rootimage" name="rootimage">
+                      <option value="x11vnc">x11vnc</option>
+                      <option value="wine">wine</option>
+                    </select><br />
+                    <input type="text" name="cores" size="7" value="2"><br />
+                    <input type="text" name="memsize" size="7" value="2048"><br />
+                    <input type="text" name="disksize" size="7" value="8"><br />
+                    <input type="checkbox" name="ceph_public" />Public
+                    <input type="checkbox" name="ceph_shared" />Shared
+                    <input type="checkbox" name="ceph_user" />Shared
+                    <input list="arglistcontypedocker" name="viewer_contype"><br />
+                    <input list="arglistresize" name="viewer_resolution"><br />
+                    <input list="arglistviewmodes" name="viewer_resize"><br />
+                    <input type="checkbox" name="viewer_scale" />Scale
+                  </form>
+                </td>
+              </tr>
+              <!-- image clone -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/container/image_clone', 'POST', 'docker-image-clone')">image_clone</button>
+                </td>
+                <td>
+                  ID <br />
+                  NEWID <br />
+                  NAME <br />
+                </td>
+                <td>
+                  <form id="docker-image-clone">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                    <input list="defaultobjectlist" id="dropdownID" name="newid" /><br />
+                    <input type="text" name="name" value="clonename"><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- Container delete -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/container/image_delete', 'POST', 'docker-image-delete')">image_delete</button>
+                </td>
+                <td>
+                  Object <br />
+                </td>
+                <td>
+                  <form id="docker-image-delete">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- Container image build (prepare) -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/container/image_build', 'POST', 'docker-container-image-build')">image_build</button>
+                </td>
+                <td>
+                  Object
+                </td>
+                <td>
+                  <form id="docker-container-image-build">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- Container start -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/container/container_start', 'POST', 'docker-container-start')">container_start</button>
+                </td>
+                <td>
+                  Object <br />
+                  Env <br />
+                  Con <br />
+                </td>
+                <td>
+                  <form id="docker-container-start">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                    <input type="text" name="id_env" value=""><br />
+                    <input type="checkbox" name="connect" checked />Connect
+                  </form>
+                </td>
+              </tr>
+              <!-- Container stop -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/container/container_stop', 'POST', 'docker-container-stop')">container_stop</button>
+                </td>
+                <td>
+                  Object <br />
+                  Args
+                </td>
+                <td>
+                  <form id="docker-container-stop">
+                    <input type="text" id="containerstoptext" name="id_instance" value="" /><br />
+                    <input type="checkbox" name="kill" checked />Kill
+                  </form>
+                </td>
+              </tr>
+              <!-- Container List -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/container/container_list', 'POST', 'docker-container-list')">container_list</button>
+                </td>
+                <td>
+                  NAME<br />
+                </td>
+                <td>
+                  <form id="docker-container-list">
+                    <input type="checkbox" name="onlyuser" checked />User
+                    <input type="checkbox" name="onlydaas" />DaaS
+                    <input type="checkbox" name="detailed" />Details
+                  </form>
+                </td>
+              </tr>
+              <!-- Container logs -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/container/container_logs', 'POST', 'docker-container-logs')">container_logs</button>
+                </td>
+                <td>
+                  NAME<br />
+                </td>
+                <td>
+                  <form id="docker-container-logs">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                  </form>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div id="vm" class="tab-content">
+          <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+              <tr>
+                <th>Action</th>
+                <th>Param_Names</th>
+                <th>Param_Values</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- VM Create -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/vm/create', 'POST', 'prox-vmcreate')">vmcreate</button>
+                </td>
+                <td>
+                  Object <br />
+                  NAME <br />
+                  Cores <br />
+                  Memsize <br />
+                  Disksize <br />
+                  Keyboard <br />
+                  OS <br />
+                  CEPH RBD <br />
+                  CEPHFS <br />
+                  CONTYPE <br />
+                  RESOLUTION <br />
+                  RESIZE <br />
+                  SCALE <br />
+                </td>
+                <td>
+                  <form id="prox-vmcreate">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                    <input type="text" name="name" value="testname"><br />
+                    <input type="text" name="cores" size="7" value="4"><br />
+                    <input type="text" name="memsize" size="7" value="4096"><br />
+                    <input type="text" name="disksize" size="7" value="64"><br />
+                    <input type="text" name="kb" value="de" /><br />
+                    <select name="os_type">
+                      <option value="win10">win10</option>
+                      <option value="win11">win11</option>
+                      <option value="l26">Linux (Kernel > 2.6)</option>
+                    </select><br />
+                    <input type="checkbox" name="ceph_pool" />Ceph (RBD)<br />
+                    <input type="checkbox" name="ceph_public" />Public
+                    <input type="checkbox" name="ceph_shared" />Shared
+                    <input type="checkbox" name="ceph_user" />Shared
+                    <input list="arglistcontype" name="viewer_contype"><br />
+                    <input list="arglistresize" name="viewer_resolution"><br />
+                    <input list="arglistviewmodes" name="viewer_resize"><br />
+                    <input type="checkbox" name="viewer_scale" />Scale
+                  </form>
+                </td>
+              </tr>
+              <!-- VM clone -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/vm/clone', 'POST', 'prox-vmclone')">vmclone</button>
+                </td>
+                <td>
+                  ID<br />
+                  NEWID<br />
+                  NAME<br />
+                  KB<br />
+                  SNAPNAME<br />
+                </td>
+                <td>
+                  <form id="prox-vmclone">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                    <input list="defaultobjectlist" id="dropdownID" name="newid" /><br />
+                    <input type="text" name="name" value="Windows10-Clone" /><br />
+                    <input type="text" name="kb" value="de" /><br />
+                    <input type="text" name="snapname" value="" /><br />
+                    <input type="checkbox" name="ceph_public" />Public
+                    <input type="checkbox" name="ceph_shared" />Shared
+                    <input type="checkbox" name="ceph_user" />Shared
+                  </form>
+                </td>
+              </tr>
+              <!-- VM delete -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/vm/delete', 'POST', 'prox-vmdelete')">vmdelete</button>
+                </td>
+                <td>
+                  ID <br />
+                </td>
+                <td>
+                  <form id="prox-vmdelete">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- VM start -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/vm/start', 'POST', 'prox-vmstart')">vmstart</button>
+                </td>
+                <td>
+                  ID <br />
+                  ENV <br />
+                  CON <br />
+                </td>
+                <td>
+                  <form id="prox-vmstart">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                    <input list="defaultobjectlist" id="dropdownID" name="id_env" /><br />
+                    <input type="checkbox" name="connect" checked />Connect
+                  </form>
+                </td>
+              </tr>
+              <!-- VM stop -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/vm/stop', 'POST', 'prox-vmstop')">vmstop</button>
+                </td>
+                <td>
+                  Instance <br />
+                </td>
+                <td>
+                  <form id="prox-vmstop">
+                    <input type="text" id="vmstoptext" name="id_instance" value="" />
+                  </form>
+                </td>
+              </tr>
+              <!-- VM list -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/vm/list', 'POST', 'prox-vmlist')">vmlist</button>
+                </td>
+                <td>
+                  Args <br />
+                </td>
+                <td>
+                  <form id="prox-vmlist">
+                    <input type="checkbox" name="onlyuser" checked />User
+                    <input type="checkbox" name="onlydaas" />DaaS
+                    <input type="checkbox" name="detailed" />Details
+                  </form>
+                </td>
+              </tr>
+              <!-- VM status -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/vm/status', 'POST', 'prox-vmstatus')">vmstatus</button>
+                </td>
+                <td>
+                  ID <br />
+                </td>
+                <td>
+                  <form id="prox-vmstatus">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- VM config get -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/vm/config_get', 'POST', 'prox-vmconfig-get')">vmconfig_get</button>
+                </td>
+                <td>
+                  ID <br />
+                </td>
+                <td>
+                  <form id="prox-vmconfig-get">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- VM config set pre-install-->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/vm/config_set_pre_install', 'POST', 'prox-vmconfig-set-pre')">vmconfig_set_pre</button>
+                </td>
+                <td>
+                  ID: <br />
+                  Name: <br />
+                  OS : <br />
+                  Cores: <br />
+                  Memsize: <br />
+                  Disksize: <br />
+                  ISO : <br />
+                  KB : <br />
+                </td>
+                <td>
+                  <form id="prox-vmconfig-set-pre">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                    <input type="text" name="name" value="configtest-pre" /><br />
+                    <input type="text" name="os_type" size="10" value="win10" /><br />
+                    <input type="text" name="cores" size="5" value="4" /><br />
+                    <input type="text" name="memsize" size="5" value="4096" /><br />
+                    <input type="text" name="disksize" size="5" value="64" /><br />
+                    <input type="text" name="iso_installer" value="win10-daas.iso" /><br />
+                    <input type="text" name="keyboard_layout" value="de" /><br />
+                    <input type="checkbox" name="ceph_pool" />Ceph (RBD)<br />
+                  </form>
+                </td>
+              </tr>
+              <!-- VM config set post-install-->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/vm/config_set_post_install', 'POST', 'prox-vmconfig-set-post')">vmconfig_set_post</button>
+                </td>
+                <td>
+                  ID<br />
+                  Name<br />
+                  KB <br />
+                </td>
+                <td>
+                  <form id="prox-vmconfig-set-post">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                    <input type="text" name="name" value="configtest-post" /><br />
+                    <input type="text" name="keyboard_layout" value="de" /><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- VM snapshot list -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/vm/snapshot_list', 'POST', 'prox-snapshot-list')">snapshot_list</button>
+                </td>
+                <td>
+                  ID
+                </td>
+                <td>
+                  <form id="prox-snapshot-list">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- VM snapshot create -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/vm/snapshot_create', 'POST', 'prox-snapshot-create')">snapshot_create</button>
+                </td>
+                <td>
+                  ID <br />
+                  NAME<br />
+                  DESC<br />
+                </td>
+                <td>
+                  <form id="prox-snapshot-create">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                    <input type="text" name="snapname" value="snapshot-test" /><br />
+                    <input type="text" name="desc" value="TEST description" /><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- VM snapshot rollback -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/vm/snapshot_rollback', 'POST', 'prox-snapshot-rollback')">snapshot_rollback</button>
+                </td>
+                <td>
+                  ID: <br />
+                  NAME: <br />
+                </td>
+                <td>
+                  <form id="prox-snapshot-rollback">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                    <input type="text" name="snapname" value="snapshot-test" /><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- VM convert template -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/vm/template_convert', 'POST', 'prox-convert-template')">template_convert</button>
+                </td>
+                <td>
+                  ID:<br />
+                  DISK:<br />
+                </td>
+                <td>
+                  <form id="prox-convert-template">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                    <input type="text" name="disk" value="virtio0" /><br />
+                    <input type="text" name="kb" value="de" /><br />
+                  </form>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div id="node" class="tab-content">
+          <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+              <tr>
+                <th>Action</th>
+                <th>Param_Names</th>
+                <th>Param_Values</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- VM configure dhcp -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/node/vmconfigure_dhcp', 'POST', 'node-configure-dhcp')">config
+                    dhcp</button>
+                </td>
+                <td>
+                  ID <br />
+                  ENV <br />
+                </td>
+                <td>
+                  <form id="node-configure-dhcp">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                    <input list="defaultobjectlist" id="dropdownID" name="id_env" /><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- VM configure iptables -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/node/vmconfigure_iptables', 'POST', 'node-configure-iptables')">config
+                    iptables</button>
+                </td>
+                <td>
+                  ID <br />
+                  ENV <br />
+                </td>
+                <td>
+                  <form id="node-configure-iptables">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                    <input list="defaultobjectlist" id="dropdownID" name="id_env" /><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- VM connection-test icmp -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/inst/connection_test_icmp', 'POST', 'node-connection-test-icmp')">test_icmp</button>
+                </td>
+                <td>
+                  ID <br />
+                  ENV <br />
+                </td>
+                <td>
+                  <form id="node-connection-test-icmp">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                    <input list="defaultobjectlist" id="dropdownID" name="id_env" /><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- VM upload (host) -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/node/vminvoke_upload', 'POST', 'node-invoke-upload')">upload
+                    (host)</button>
+                </td>
+                <td>
+                  FILE <br />
+                </td>
+                <td>
+                  <form id="node-invoke-upload" enctype="multipart/form-data">
+                    <input type="file" name="file" id="file-upload">
+                  </form>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div id="inst" class="tab-content">
+          <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+              <tr>
+                <th>Action</th>
+                <th>Param_Names</th>
+                <th>Param_Values</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- VM invoke app -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/inst/vminvoke_app', 'POST', 'inst-invoke-app')">app</button>
+                </td>
+                <td>
+                  ID <br />
+                  ENV <br />
+                  CMD <br />
+                  ARGS <br />
+                </td>
+                <td>
+                  <form id="inst-invoke-app">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                    <input type="text" name="id_env" value="" />
+                    <input type="text" name="cmd" list="applist" />
+                    <input type="text" name="args" value="" /><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- VM invoke cmd -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/inst/vminvoke_cmd', 'POST', 'inst-invoke-cmd')">cmd</button>
+                </td>
+                <td>
+                  ID <br />
+                  ENV <br />
+                  CMD <br />
+                  ARGS <br />
+                </td>
+                <td>
+                  <form id="inst-invoke-cmd">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                    <input type="text" name="id_env" value="" />
+                    <input type="text" name="cmd" list="applist" />
+                    <input type="text" name="args" value="" /><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- VM invoke ssh -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/inst/vminvoke_ssh', 'POST', 'inst-invoke-ssh')">raw
+                    ssh</button>
+                </td>
+                <td>
+                  ID <br />
+                  ENV <br />
+                  CMD <br />
+                  ARGS <br />
+                </td>
+                <td>
+                  <form id="inst-invoke-ssh">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                    <input type="text" name="id_env" value="" />
+                    <input type="text" name="cmd" value="python" /><br />
+                    <input type="text" name="args" value="--version" /><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- VM invoke action -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/inst/vminvoke_action', 'POST', 'inst-invoke-action')">actions</button>
+                </td>
+                <td>
+                  ID <br />
+                  ENV <br />
+                  CMD <br />
+                  ARGS <br />
+                </td>
+                <td>
+                  <form id="inst-invoke-action">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                    <input type="text" name="id_env" value="" />
+                    <input type="text" name="cmd" value="status" /><br />
+                    <input type="text" name="args" value="" /><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- VM invoke resize -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/inst/vminvoke_resolution', 'POST', 'inst-invoke-resize')">resolutions</button>
+                </td>
+                <td>
+                  ID <br />
+                  ENV <br />
+                  CMD <br />
+                  ARGS <br />
+                </td>
+                <td>
+                  <form id="inst-invoke-resize">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                    <input type="text" name="id_env" value="" />
+                    <input type="text" name="cmd" value="get" /><br />
+                    <input type="text" name="args" list="arglistresize" />
+                  </form>
+                </td>
+              </tr>
+              <!-- VM invoke install -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/inst/vminvoke_ospackage', 'POST', 'inst-invoke-install')">ospackage</button>
+                </td>
+                <td>
+                  ID <br />
+                  ENV <br />
+                  CMD <br />
+                  ARGS <br />
+                </td>
+                <td>
+                  <form id="inst-invoke-install">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                    <input type="text" name="id_env" value="" />
+                    <input type="text" name="cmd" value="install" /><br />
+                    <input type="text" name="args" list="arglistinstall" />
+                  </form>
+                </td>
+              </tr>
+              <!-- VM upload (inst) -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/inst/vminvoke_upload', 'POST', 'inst-invoke-upload')">upload
+                    (inst) </button>
+                </td>
+                <td>
+                  ID <br />
+                  ENV <br />
+                  FILE <br />
+                  EXEC <br />
+                </td>
+                <td>
+                  <form id="inst-invoke-upload" enctype="multipart/form-data">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                    <input type="text" name="id_env" value="" />
+                    <input type="file" name="file" id="inst-file-upload"><br />
+                    <input type="checkbox" name="execute" checked />Execute
+                  </form>
+                </td>
+              </tr>
+              <!-- INST mount (inst) -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/inst/vminvoke_cephfs', 'POST', 'inst-invoke-cephfs')">filesystem</button>
+                </td>
+                <td>
+                  ID <br />
+                  ENV <br />
+                  CMD <br />
+                  CEPH <br />
+                </td>
+                <td>
+                  <form id="inst-invoke-cephfs" >
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                    <input type="text" name="id_env" value="" /><br />
+                    <input list="filesystemcommands" id="dropdownID" name="cmd" /><br />
+                    <input type="checkbox" name="ceph_public" checked/>Public
+                    <input type="checkbox" name="ceph_shared" checked/>Shared
+                    <input type="checkbox" name="ceph_user" checked/>User
+                  </form>
+                </td>
+              </tr>
+              <!-- Instance list -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/inst/list', 'POST', 'inst-list')">List</button>
+                </td>
+                <td>
+                </td>
+                <td>
+                  <form id="inst-list">
+                  </form>
+                </td>
+              </tr>
+              <!-- VM connection-test icmp -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/inst/connection_test_icmp', 'POST', 'inst-connection-test-icmp')">test_icmp</button>
+                </td>
+                <td>
+                  ID <br />
+                  ENV <br />
+                </td>
+                <td>
+                  <form id="inst-connection-test-icmp">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                    <input type="text" name="id_env" value="" />
+                  </form>
+                </td>
+              </tr>
+              <!-- VM connection-test ssh -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/inst/connection_test_ssh', 'POST', 'inst-connection-test-ssh')">test_ssh</button>
+                </td>
+                <td>
+                  ID <br />
+                  ENV <br />
+                </td>
+                <td>
+                  <form id="inst-connection-test-ssh">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                    <input type="text" name="id_env" value="" />
+                  </form>
+                </td>
+              </tr>
+              <!-- VM invoke rtt -->
+              <tr>
+                <td id="rttcontainer">
+                  <button type="button"
+                    onclick="submitTiming('{{hostproto}}://{{hostip}}:{{hostport}}/tests/measure_rtt', 'POST', 'inst-measure-rtt')">Roundtrip</button>
+                </td>
+                <td>
+                  ID <br />
+                  ENV <br />
+                  ITERATIONS <br />
+                  NAME <br />
+                  CMD <br />
+                  ARGS <br />
+                </td>
+                <td>
+                  <form id="inst-measure-rtt">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                    <input type="text" name="id_env" value="" />
+                    <input type="text" name="iter" value="1" id="rttiter" /><br />
+                    <input type="text" name="name" value="results.json" id="downloadname"/><br />
+                    <input type="text" name="cmd"  value="rtt" /><br />
+                    <input type="text" name="args" value="" /><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- Add more rows/forms as required -->
+            </tbody>
+          </table>
+        </div>
+
+        <div id="phase" class="tab-content">
+          <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+              <tr>
+                <th>Action</th>
+                <th>Param_Names</th>
+                <th>Param_Values</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Baseimage Create -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/phases/baseimage_create', 'POST', 'phases-baseimage-create')">baseimg_create</button>
+                </td>
+                <td>
+                  Args<br />
+                </td>
+                <td>
+                  <form id="phases-baseimage-create">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                    <select id="obj_type" name="obj_type" onchange="toggleObjectInputs('phases-baseimage-create')">
+                      <option value=""></option>
+                      <option value="vm">VM</option>
+                      <option value="container">Container</option>
+                    </select><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- Baseimage Clone -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/phases/baseimage_clone', 'POST', 'phases-baseimage-clone')">baseimage_clone</button>
+                </td>
+                <td>
+                  ID<br />
+                  NEWID<br />
+                  NAME<br />
+                </td>
+                <td>
+                  <form id="phases-baseimage-clone">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                    <input list="defaultobjectlist" id="dropdownID" name="newid" /><br />
+                    <input type="text" name="name" value="cloned" /><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- Baseimage Create From App -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/phases/baseimage_create_from_app', 'POST', 'phases-baseimage-create-from-app')">baseimg_create_from_app</button>
+                </td>
+                <td>
+                  ID<br />
+                  APPID<br />
+                  ENV<br />
+                  NAME<br />
+                </td>
+                <td>
+                  <form id="phases-baseimage-create-from-app">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                      <input list="defaultapplist" id="dropdownID" name="appid" /><br />
+                    <input type="text" name="env" value="testenv"/><br />
+                    <input type="text" name="name" value="testname"/><br />
+                    <input type="checkbox" name="run" checked />Run<br/>
+                  </form>
+                </td>
+              </tr>
+              <!-- Baseimage Clone From App -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/phases/baseimage_clone_from_app', 'POST', 'phases-baseimage-clone-from-app')">baseimg_clone_from_app</button>
+                </td>
+                <td>
+                  ID<br />
+                  NEWID<br />
+                  APPID<br />
+                  ENV<br />
+                  NAME<br />
+                  RUN<br />
+                </td>
+                <td>
+                  <form id="phases-baseimage-clone-from-app">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                    <input list="defaultobjectlist" id="dropdownID" name="newid" /><br />
+                      <input list="defaultapplist" id="dropdownID" name="appid" /><br />
+                    <input type="text" name="env" value="testenv"/><br />
+                    <input type="text" name="name" value="testname"/><br />
+                    <input type="checkbox" name="run" checked />Run<br/>
+                  </form>
+                </td>
+              </tr>
+              <!-- Baseimage Finalize -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/phases/baseimage_finalize', 'POST', 'phases-baseimage-finalize')">baseimg_finalize</button>
+                </td>
+                <td>
+                  Args<br />
+                </td>
+                <td>
+                  <form id="phases-baseimage-finalize">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- Object delete -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/phases/baseimage_delete', 'POST', 'phases-obj-delete')">baseimage_delete</button>
+                </td>
+                <td>
+                  ID <br />
+                </td>
+                <td>
+                  <form id="phases-obj-delete">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- Object start -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/phases/baseimage_start', 'POST', 'phases-obj-start')">baseimage_start</button>
+                </td>
+                <td>
+                  ID<br />
+                </td>
+                <td>
+                  <form id="phases-obj-start">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                    <input type="checkbox" name="connect" checked />Connect
+                  </form>
+                </td>
+              </tr>
+              <!-- Object stop -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/phases/baseimage_stop', 'POST', 'phases-obj-stop'); clearViewer();">baseimage_stop</button>
+                </td>
+                <td>
+                  ID<br />
+                </td>
+                <td>
+                  <form id="phases-obj-stop">
+                    <input type="text" id="objstoptext" name="id_instance" value="" /><br />
+                    <input type="checkbox" name="force" checked />Kill
+                  </form>
+                </td>
+              </tr>
+
+              <!-- CFG ffrom App -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/phases/cfg_from_application', 'POST', 'phases-cfg-from-application')">cfg_from_app</button>
+                </td>
+                <td>
+                  ID<br />
+                  APPID<br />
+                  ENV<br />
+                </td>
+                <td>
+                  <form id="phases-cfg-from-application">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                    <input list="defaultapplist" id="dropdownID" name="appid" /><br />
+                    <input type="text" name="env" value="" /><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- Tasklist set -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/phases/cfg_tasklist', 'POST', 'phases-cfg-tasklist')">cfg_tasklist</button>
+                </td>
+                <td>
+                  ID<br />
+                  ENV<br />
+                  <br />
+                  APP 1<br />
+                  APP 2<br />
+                  APP N<br />
+                </td>
+                <td>
+                  <form id="phases-cfg-tasklist">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                    <input type="text" name="env" value="" /><br />
+                    <input type="text" id="phases-cfg-tasklist-json" name="tasklist" value="" /><br />
+
+                    <div class="taskdiv">
+                      <select name="type"
+                        onchange="updateTasklistInputs('phases-cfg-tasklist', 'phases-cfg-tasklist-json')">
+                        <option value=""></option>
+                        <option value="exec_cmd">exec_cmd</option>
+                        <option value="os_install">install</option>
+                        <option value="os_uninstall">uninstall</option>
+                      </select>
+                      <input type="text" class="text-medium" name="cmd" list="applist"
+                        onchange="updateTasklistInputs('phases-cfg-tasklist', 'phases-cfg-tasklist-json')" />
+                      <input type="text" class="text-short" name="args" value=""
+                        onchange="updateTasklistInputs('phases-cfg-tasklist', 'phases-cfg-tasklist-json')" /><br />
+                    </div>
+                    <div class="taskdiv">
+                      <select name="type"
+                        onchange="updateTasklistInputs('phases-cfg-tasklist', 'phases-cfg-tasklist-json')">
+                        <option value=""></option>
+                        <option value="exec_cmd">exec_cmd</option>
+                        <option value="os_install">install</option>
+                        <option value="os_uninstall">uninstall</option>
+                      </select>
+                      <input type="text" class="text-medium" name="cmd" list="applist"
+                        onchange="updateTasklistInputs('phases-cfg-tasklist', 'phases-cfg-tasklist-json')" />
+                      <input type="text" class="text-short" name="args" value=""
+                        onchange="updateTasklistInputs('phases-cfg-tasklist', 'phases-cfg-tasklist-json')" /><br />
+                    </div>
+                    <div class="taskdiv">
+                      <select name="type"
+                        onchange="updateTasklistInputs('phases-cfg-tasklist', 'phases-cfg-tasklist-json')">
+                        <option value=""></option>
+                        <option value="exec_cmd">exec_cmd</option>
+                        <option value="os_install">install</option>
+                        <option value="os_uninstall">uninstall</option>
+                      </select>
+                      <input type="text" class="text-medium" name="cmd" list="applist"
+                        onchange="updateTasklistInputs('phases-cfg-tasklist', 'phases-cfg-tasklist-json')" />
+                      <input type="text" class="text-short" name="args" value=""
+                        onchange="updateTasklistInputs('phases-cfg-tasklist', 'phases-cfg-tasklist-json')" /><br />
+                    </div>
+                  </form>
+                </td>
+              </tr>
+              <!-- Applist set -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/phases/cfg_applist', 'POST', 'phases-cfg-applist')">cfg_applist</button>
+                </td>
+                <td>
+                  ID<br />
+                  ENV<br />
+                  <br />
+                  APP 1<br />
+                  APP 2<br />
+                  APP N<br />
+                </td>
+                <td>
+                  <form id="phases-cfg-applist">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                    <input type="text" name="env" value="" /><br />
+                    <input type="text" id="phases-cfg-applist-json" name="applist" value="" /><br />
+
+                    <div class="cmddiv">
+                      <select name="cmd"
+                        onchange="updateApplistInputs('phases-cfg-applist', 'phases-cfg-applist-json')">
+                        <option value=""></option>
+                        <option value="C:/Program Files/Microsoft Office/root/Office16/Excel.exe">Excel</option>
+                        <option value="C:/Program Files/Microsoft Office/root/Office16/Word.exe">Word</option>
+                        <option value="C:/Program Files/Microsoft Office/root/Office16/Powerpoint.exe">Powerpoint</option>
+                      </select>
+                      <input type="text" style="max-width: 50%" name="args" value="" /><br />
+                    </div>
+                    <div class="cmddiv">
+                      <select name="cmd"
+                        onchange="updateApplistInputs('phases-cfg-applist', 'phases-cfg-applist-json')">
+                        <option value=""></option>
+                        <option value="C:/Program Files/Microsoft Office/root/Office16/Excel.exe">Excel</option>
+                        <option value="C:/Program Files/Microsoft Office/root/Office16/Word.exe">Word</option>
+                        <option value="C:/Program Files/Microsoft Office/root/Office16/Powerpoint.exe">Powerpoint</option>
+                      </select>
+                      <input type="text" style="max-width: 50%" name="args" value="" /><br />
+                    </div>
+                    <div class="cmddiv">
+                      <select name="cmd"
+                        onchange="updateApplistInputs('phases-cfg-applist', 'phases-cfg-applist-json')">
+                        <option value=""></option>
+                        <option value="C:/Program Files/Microsoft Office/root/Office16/Excel.exe">Excel</option>
+                        <option value="C:/Program Files/Microsoft Office/root/Office16/Word.exe">Word</option>
+                        <option value="C:/Program Files/Microsoft Office/root/Office16/Powerpoint.exe">Powerpoint</option>
+                      </select>
+                      <input type="text" style="max-width: 50%" name="args" value="" /><br />
+                    </div>
+                  </form>
+                </td>
+              </tr>
+              <!-- Cfg set target -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/phases/cfg_set_target', 'POST', 'phases-set-target')">cfg_target</button>
+                </td>
+                <td>
+                  ID<br />
+                  ENV<br />
+                  <br />
+                  NAME<br />
+                  CMD<br />
+                  ARGS<br />
+                </td>
+                <td>
+                  <form id="phases-set-target">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                    <input type="text" name="env" value="" /><br />
+                    <input type="text" id="phases-cfg-target-json" name="target" value="" /><br />
+                    <input type="text" name="name" value="testname"
+                      onchange="updateTargetInputs('phases-set-target', 'phases-cfg-target-json')" /><br />
+                    <input type="text" name="cmd" list="applist"
+                      onchange="updateTargetInputs('phases-set-target', 'phases-cfg-target-json')" />
+                    <input type="text" name="args" value=""
+                      onchange="updateTargetInputs('phases-set-target', 'phases-cfg-target-json')" /><br />
+                  </form>
+                </td>
+              </tr>
+
+
+              <!-- Environment Create -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/phases/environment_create', 'POST', 'phases-environment-create')">env_create</button>
+                </td>
+                <td>
+                  Args<br />
+                </td>
+                <td>
+                  <form id="phases-environment-create">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                    <input type="text" name="name" value="testenv">
+                    <input type="file" name="dockerfile" value="">
+                  </form>
+                </td>
+              </tr>
+              <!-- Environment Finalize -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/phases/environment_finalize', 'POST', 'phases-environment-finalize')">env_finalize</button>
+                </td>
+                <td>
+                  Args<br />
+                </td>
+                <td>
+                  <form id="phases-environment-finalize">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                    <input type="text" name="name" value="testenv">
+                  </form>
+                </td>
+              </tr>
+              <!-- Environment Delete -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/phases/environment_delete', 'POST', 'phases-environment-delete')">env_delete</button>
+                </td>
+                <td>
+                  Args<br />
+                </td>
+                <td>
+                  <form id="phases-environment-delete">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                    <input type="text" name="name" value="testenv">
+                  </form>
+                </td>
+              </tr>
+              <!-- Environment Get -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/phases/environment_get', 'POST', 'phases-environment-get')">env_get</button>
+                </td>
+                <td>
+                  Args<br />
+                </td>
+                <td>
+                  <form id="phases-environment-get">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                    <input type="text" name="name" value="testenv">
+                  </form>
+                </td>
+              </tr>
+              <!-- Environments Get -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/phases/environments_get', 'POST', 'phases-environments-get')">envs_get</button>
+                </td>
+                <td>
+                  Args<br />
+                </td>
+                <td>
+                  <form id="phases-environments-get">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- Environment Start -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/phases/environment_start', 'POST', 'phases-environment-start')">env_start</button>
+                </td>
+                <td>
+                  Args<br />
+                  ENV<br />
+                  CON<br />
+                </td>
+                <td>
+                  <form id="phases-environment-start">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                    <input type="text" name="name" value="testenv"><br />
+                    <input type="checkbox" name="connect" checked />Connect
+                  </form>
+                </td>
+              </tr>
+              <!-- Environment Run -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/phases/environment_run', 'POST', 'phases-environment-run')">env_run</button>
+                </td>
+                <td>
+                  Args<br />
+                  ENV<br />
+                  CON<br />
+                </td>
+                <td>
+                  <form id="phases-environment-run">
+                    <input list="defaultobjectlist" id="envrun-id" name="id" /><br />
+                    <input id="envrun-name" type="text" name="env" value="testenv"><br />
+                    <input type="checkbox" name="connect" checked />Connect
+                  </form>
+                </td>
+              </tr>
+              <!-- Environments Stop -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/phases/environment_stop', 'POST', 'phases-environment-stop')">env_stop</button>
+                </td>
+                <td>
+                  ID<br />
+                  NAME<br />
+                  KILL<br />
+                </td>
+                <td>
+                  <form id="phases-environment-stop">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                    <input type="text" name="name" value="testenv"><br />
+                    <input type="checkbox" name="force" checked />Kill
+                  </form>
+                </td>
+              </tr>
+              <!-- Object status -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/phases/object_status', 'POST', 'phases-obj-status')">object_status</button>
+                </td>
+                <td>
+                  ID<br />
+                </td>
+                <td>
+                  <form id="phases-obj-status">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- Object list -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/phases/object_list', 'POST', 'phases-obj-list')">object_list</button>
+                </td>
+                <td>
+                  ID<br />
+                </td>
+                <td>
+                  <form id="phases-obj-list">
+                    <input type="checkbox" name="onlyuser" checked />User
+                    <input type="checkbox" name="onlydaas" />DaaS
+                    <input type="checkbox" name="detailed" />Details
+                  </form>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div id="auth" class="tab-content">
+          <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+              <tr>
+                <th>Action</th>
+                <th>Param_Names</th>
+                <th>Param_Values</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Auth test -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/auth/test', 'POST', 'auth-test')">Test auth</button>
+                </td>
+                <td>
+                </td>
+                <td>
+                  <form id="auth-test">
+                  </form>
+                </td>
+              </tr>
+              <!-- ping user -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/auth/ping/user', 'POST', 'auth-ping-user')">ping/user</button>
+                </td>
+                <td>
+                </td>
+                <td>
+                  <form id="auth-ping-user">
+                  </form>
+                </td>
+              </tr>
+              <!-- verify bearer -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/auth/verify_bearer', 'POST', 'auth-verify-bearer')">verify_bearer</button>
+                </td>
+                <td>
+                  BEARER<br />
+                </td>
+                <td>
+                  <form id="auth-verify-bearer">
+                    <input type="text" name="bearer" value="" />
+                  </form>
+                </td>
+              </tr>
+              <!-- ping user -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/auth/user', 'POST', 'auth-get-user')">user</button>
+                </td>
+                <td>
+                  USERID<br />
+                </td>
+                <td>
+                  <form id="auth-get-user">
+                    <input type="text" name="userid" value="8" />
+                  </form>
+                </td>
+              </tr>
+              <!-- Auth user_session -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/auth/oauth2/user/session', 'POST', 'auth-user-session')">user_session</button>
+                </td>
+                <td>
+                </td>
+                <td>
+                  <form id="auth-user-session">
+                  </form>
+                </td>
+              </tr>
+              <!-- Auth user_groups -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/auth/user_groups', 'POST', 'auth-user-groups')">user_groups</button>
+                </td>
+                <td>
+                </td>
+                <td>
+                  <form id="auth-user-groups">
+                  </form>
+                </td>
+              </tr>
+              <!-- Auth admins -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/auth/admins', 'POST', 'auth-admins')">admins</button>
+                </td>
+                <td>
+                </td>
+                <td>
+                  <form id="auth-admins">
+                  </form>
+                </td>
+              </tr>
+              <!-- Auth users -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/auth/users', 'POST', 'auth-users')">users</button>
+                </td>
+                <td>
+                </td>
+                <td>
+                  <form id="auth-users">
+                  </form>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div id="view" class="tab-content">
+          <div class="padbox">
+            <input type="text" id="viewerurl" />
+            <input type="button" value="Refresh" onclick="javascript:setViewerInstance()" />
+            <input type="button" value="Fullscreen" onclick="javascript:fullscreenViewer()" />
+            <input type="button" value="ToggleNav" onclick="javascript:toggleNav()" /><br />
+            <input type="button" value="Maximize" onclick="javascript:maximizeViewer()" />
+            <input type="button" value="1920x1080" onclick="javascript:resizeViewer(1920,1080)" />
+            <input type="button" value="1280x800" onclick="javascript:resizeViewer (1280, 800)" />
+            <input type="button" value="1280x799" onclick="javascript:resizeViewer (1280, 799)" />
+            <input type="button" value="1024x768" onclick="javascript:resizeViewer (1024, 768)" /><br />
+            <input type="button" value="Proxmox" onclick="window.open('{{hostproto}}://{{hostip}}:8006', '_blank').focus(); " />
+            <input type="button" value="Frontend"
+              onclick="window.open('{{hostproto}}://{{hostip}}:443', '_blank').focus(); " /><br />
+          </div>
+          <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+              <tr>
+                <th>Action</th>
+                <th>Param_Names</th>
+                <th>Param_Values</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Viewer connect -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/viewer/connect', 'POST', 'viewer-connect')">connect</button>
+                </td>
+                <td>
+                  ID <br />
+                  ENV <br />
+                  PROTO<br />
+                </td>
+                <td>
+                  <form id="viewer-connect">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                    <input type="text" name="id_env" value=""><br />
+                    <select name="contype">
+                      <option value="sysvnc">System VNC</option>
+                      <option value="instvnc">Instance VNC</option>
+                      <option value="rdp">RDP</option>
+                    </select><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- Viewer disconnect -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/viewer/disconnect', 'POST', 'viewer-disconnect')">disconnect</button>
+                </td>
+                <td>
+                  ID <br />
+                </td>
+                <td>
+                  <form id="viewer-disconnect">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                    <input type="text" name="id_env" value=""><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- Viewer settings -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/viewer/settings', 'POST', 'viewer-settings')">settings</button>
+                </td>
+                <td>
+                  ID <br />
+                  ENV <br />
+                  RESOLUTION<br />
+                  CONTYPE<br />
+                  RESIZE<br />
+                  SCALE<br />
+                  CONNECT<br />
+                </td>
+                <td>
+                  <form id="viewer-settings">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                    <input type="text" name="id_env" value=""><br />
+                    <input list="arglistresize" name="resolution" value=""><br />
+                    <select name="contype" id="dropdownID" >
+                      <option value="sysvnc">System VNC (Proxmox default)</option>
+                      <option value="instvnc">Instance VNC (Docker default)</option>
+                      <option value="rdp">RDP (Windows only)</option>
+                    </select><br />
+                    <select name="resize" id="dropdownID" >
+                      <option value="none">None (Do nothing)</option>
+                      <option value="semi">Semi (Allow Instance)</option>
+                      <option value="full">Full (Enforce JS)</option>
+                    </select><br />
+                      <input type="checkbox" name="scale" checked />Scale<br />
+                    <input type="checkbox" name="connect" checked />Connect
+                  </form>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div id="info" class="tab-content">
+          <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+              <tr>
+                <th>Action</th>
+                <th>Param_Names</th>
+                <th>Param_Values</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- dashboard info -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/monitoring/dashboard_info', 'POST', 'info-dashboardinfo')">Dashboard Info</button>
+                </td>
+                <td>
+                </td>
+                <td>
+                  <form id="info-dashboardinfo">
+                  </form>
+                </td>
+              </tr>
+              <!-- tests -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/info/constats', 'POST', 'info-constats')">Connection Stats</button>
+                </td>
+                <td>
+                </td>
+                <td>
+                  <form id="info-constats">
+                  </form>
+                </td>
+              </tr>
+              <!-- synchronize all -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/info/synchronize_all', 'POST', 'synchronize-all')">Synchronize_all</button>
+                </td>
+                <td>
+                </td>
+                <td>
+                  <form id="synchronize-all">
+                  </form>
+                </td>
+              </tr>
+              <!-- tests -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/info/testing', 'POST', 'info-testing')">Testing</button>
+                </td>
+                <td>
+                </td>
+                <td>
+                  <form id="info-testing">
+                  </form>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+
+        <div id=files class="tab-content">
+          <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+              <tr>
+                <th>Action</th>
+                <th>Param_Names</th>
+                <th>Param_Values</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- file-create -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/files/create', 'POST', 'file-create')">file_create</button>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/files/create_shared', 'POST', 'file-create')">file_create_shared</button>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/files/update', 'POST', 'file-create')">file_update</button>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/files/update_shared', 'POST', 'file-create')">file_update_shared</button>
+                </td>
+                <td>
+                  ID <br /> 
+                  NAME <br />
+                  DESTINATION<br />
+                  VERSION<br /><br />
+                  FILE<br />
+                  OS_TYPE<br /> 
+                </td>
+                <td>
+                  <form id="file-create">
+                    <input list="defaultfilelist" id="dropdownID" name="id" /><br />
+                    <input type="text" name="filename" value="testfile.bat"><br />
+                    <input type="text" name="filepath" value="C:/Users/root"><br />
+                    <input type="text" name="version" value="1.2.3"><br />
+                    <input type="file" name="file" id="file-upload">
+                    <select name="os_type">
+                      <option value="win10">win10</option>
+                      <option value="win11">win11</option>
+                      <option value="l26">Linux (Kernel > 2.6)</option>
+                    </select><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- files-get -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/files/get', 'POST', 'file-get')">file_get</button>
+                </td>
+                <td>
+                  ID <br />
+                </td>
+                <td>
+                  <form id="file-get">
+                    <input list="defaultfilelist" id="dropdownID" name="id" /><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- files-delete -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/files/delete', 'POST', 'files-delete')">files_delete</button>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/files/delete_shared', 'POST', 'files-delete')">files_delete_shared</button>
+                </td>
+                <td>
+                  ID <br />
+                </td>
+                <td>
+                  <form id="files-delete">
+                    <input list="defaultfilelist" id="dropdownID" name="id" /><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- files-list -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/files/list', 'POST', 'files-list')">files_list</button>
+                </td>
+                <td>
+                  ID <br />
+                </td>
+                <td>
+                  <form id="files-list">
+                    <select name="choice">
+                      <option value="user">User files</option>
+                      <option value="shared">Shared files</option>
+                      <option value="both">All available</option>
+                    </select><br />
+                  </form>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+
+          <div id="apps" class="tab-content">
+          <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+              <tr>
+                <th>Action</th>
+                <th>Param_Names</th>
+                <th>Param_Values</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- app-create -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/apps/create', 'POST', 'app-create')">app_create</button>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/apps/create_shared', 'POST', 'app-create')">app_create_shared</button>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/apps/update', 'POST', 'app-create')">app_update</button>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/apps/update_shared', 'POST', 'app-create')">app_update_shared</button>
+                </td>
+                <td>
+                  ID <br />
+                  NAME <br />
+                  ID_FILE<br />
+                  ID_TEMPLATE<br /><br/>
+                  OS_TYPE<br />
+                  INSTALLER<br />
+                  INSTALLER_ARGS<br />
+                  INSTALLER_TYPE<br /><br/>
+                  TARGET<br />
+                  TARGET_ARGS<br />
+                  VERSION<br />
+                </td>
+                <td>
+                  <form id="app-create">
+                    <input list="defaultapplist" id="dropdownID" name="id" /><br />
+                    <input type="text" name="name" value="testname"><br />
+                    <input list="defaultfilelist" id="dropdownID" name="id_file" /><br />
+                    <input list="defaultobjectlist" id="dropdownID" name="id_template" /><br />
+                    <select name="os_type">
+                      <option value="win10">win10</option>
+                      <option value="win11">win11</option>
+                      <option value="l26">Linux (Kernel > 2.6)</option>
+                    </select><br />
+                    <input list="appinstaller" id="dropdownID" name="installer" /><br />
+                    <input list="appinstallerargs" id="dropdownID" name="installer_args" /><br />
+                    <select name="installer_type">
+                      <option value="none">No Install</option>
+                      <option value="exec_ssh">SSH Execute</option>
+                      <option value="exec_cmd">CMD Execute</option>
+                      <option value="exec_app">APP Execute</option>
+                      <option value="os_install">OS Install</option>
+                      <option value="os_uninstall">OS Uninstall</option>
+                    </select><br />
+                    <input list="applist" id="dropdownID" name="target" /><br />
+                    <input type="text" name="target_args" value=""><br />
+                    <input type="text" name="version" value="1.2.3"><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- app-get -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/apps/get', 'POST', 'app-get')">app_get</button>
+                </td>
+                <td>
+                  ID <br />
+                </td>
+                <td>
+                  <form id="app-get">
+                    <input list="defaultapplist" id="dropdownID" name="id" /><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- app-delete -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/apps/delete', 'POST', 'app-delete')">app_delete</button>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/apps/delete_shared', 'POST', 'app-delete')">app_delete_shared</button>
+                </td>
+                <td>
+                  ID <br />
+                </td>
+                <td>
+                  <form id="app-delete">
+                    <input list="defaultapplist" id="dropdownID" name="id" /><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- app-list -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/apps/list', 'POST', 'app-list')">app_list</button>
+                </td>
+                <td>
+                  ID <br />
+                </td>
+                <td>
+                  <form id="app-list">
+                    <select name="choice">
+                      <option value="user">User apps</option>
+                      <option value="shared">Shared pps</option>
+                      <option value="both">All available</option>
+                    </select><br />
+                  </form>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div id="tasks" class="tab-content">
+          <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+              <tr>
+                <th>Action</th>
+                <th>Param_Names</th>
+                <th>Param_Values</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- task start -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/tasks/start_prepared', 'POST', 'tasks-start-prepared')">start_test</button>
+                </td>
+                <td>
+                  ID_OBJECT<br />
+               </td>
+                <td>
+                  <form id="tasks-start-prepared">
+                    <input list="defaultobjectlist" id="dropdownID" name="id_object" /><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- task get -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/tasks/get', 'POST', 'tasks-get')">get</button>
+                </td>
+                <td>
+                  ID_TASK<br />
+               </td>
+                <td>
+                  <form id="tasks-get">
+                    <input type="text" name="id_task" value=""><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- task stop -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/tasks/stop', 'POST', 'tasks-stop')">stop</button>
+                </td>
+                <td>
+                  ID_TASK<br />
+                  ID_OBJECT<br />
+                  ID_INSTANCE<br />
+               </td>
+                <td>
+                  <form id="tasks-stop">
+                    <input type="text" name="id_task" value=""><br />
+                    <input list="defaultobjectlist" id="dropdownID" name="id_object" /><br />
+                    <input type="text" name="id_instance" value=""><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- tasks status -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/tasks/status', 'POST', 'tasks-status')">status</button>
+                </td>
+                <td>
+               </td>
+                <td>
+                  <form id="tasks-status">
+                  </form>
+                </td>
+              </tr>
+              <!-- tasks list -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/tasks/list', 'POST', 'tasks-list')">list</button>
+                </td>
+                <td>
+                  ID_OBJECT<br />
+                  ID_INSTANCE<br />
+                  STATE<br />
+               </td>
+                <td>
+                  <form id="tasks-list">
+                    <input list="defaultobjectlist" id="dropdownID" name="id_object" /><br />
+                    <input type="text" name="id_instance" value=""><br />
+                    <select name="state">
+                      <option value="all">All</option>
+                      <option value="running">Running</option>
+                      <option value="final">Finalized</option>
+                    </select><br />
+                  </form>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div id="mon" class="tab-content">
+          <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+              <tr>
+                <th>Action</th>
+                <th>Param_Names</th>
+                <th>Param_Values</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- monitor-info -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/monitoring/get_monitor_info', 'POST', 'monitor-info')">monitor_info</button>
+                </td>
+                <td>
+                </td>
+                <td>
+                  <form id="monitor-info">
+                  </form>
+                </td>
+              </tr>
+              <!-- monitor-info-tasks -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/monitoring/get_monitor_info_tasks', 'POST', 'monitor-info-tasks')">monitor_info_tasks</button>
+                </td>
+                <td>
+                </td>
+                <td>
+                  <form id="monitor-info-tasks">
+                  </form>
+                </td>
+              </tr>
+              <!-- monitor-info-apps -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/monitoring/get_monitor_info_apps', 'POST', 'monitor-info-apps')">monitor_info_apps</button>
+                </td>
+                <td>
+                </td>
+                <td>
+                  <form id="monitor-info-apps">
+                  </form>
+                </td>
+              </tr>
+              <!-- monitor-info-files -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/monitoring/get_monitor_info_files', 'POST', 'monitor-info-files')">monitor_info_files</button>
+                </td>
+                <td>
+                </td>
+                <td>
+                  <form id="monitor-info-files">
+                  </form>
+                </td>
+              </tr>
+              <!-- monitor-info-websockets -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/monitoring/get_monitor_info_websockets', 'POST', 'monitor-info-websockets')">monitor_info_sockets</button>
+                </td>
+                <td>
+                </td>
+                <td>
+                  <form id="monitor-info-websockets">
+                  </form>
+                </td>
+              </tr>
+              <!-- monitor-info-host -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/monitoring/get_monitor_info_host', 'POST', 'monitor-info-host')">monitor_info_host</button>
+                </td>
+                <td>
+                </td>
+                <td>
+                  <form id="monitor-info-host">
+                  </form>
+                </td>
+              </tr>
+              <!-- monitor-info-objects -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/monitoring/get_monitor_info_objects', 'POST', 'monitor-info-objects')">monitor_info_objects</button>
+                </td>
+                <td>
+                </td>
+                <td>
+                  <form id="monitor-info-objects">
+                  </form>
+                </td>
+              </tr>
+              <!-- monitor-info-utilization -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/monitoring/get_monitor_info_utilization', 'POST', 'monitor-info-utilization')">monitor_info_utilization</button>
+                </td>
+                <td>
+                </td>
+                <td>
+                  <form id="monitor-info-utilization">
+                  </form>
+                </td>
+              </tr>
+              <!-- monitor-info-limits -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/monitoring/get_monitor_info_limits', 'POST', 'monitor-info-limits')">monitor_info_limits</button>
+                </td>
+                <td>
+                </td>
+                <td>
+                  <form id="monitor-info-limits">
+                  </form>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <div id="limits" class="tab-content">
+          <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+              <tr>
+                <th>Action</th>
+                <th>Param_Names</th>
+                <th>Param_Values</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- limit-put -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/limits/put_limit', 'POST', 'limit-put')">put_limit</button>
+                </td>
+                <td>
+                  OWNER <br />
+                  VM_MAX <br />
+                  CNT_MAX <br />
+                  OBJ_MAX <br />
+                  CPU_MAX <br />
+                  MEM_MAX <br />
+                  DSK_MAX <br />
+                </td>
+                <td>
+                  <form id="limit-put">
+                    <input type="text" id="dropdownID" name="id_owner" value="5" /><br />
+                    <input type="text" id="dropdownID" name="vm_max" value="-1"/><br />
+                    <input type="text" id="dropdownID" name="container_max" value="-1"/><br />
+                    <input type="text" id="dropdownID" name="obj_max" value="-1"/><br/>
+                    <input type="text" id="dropdownID" name="cpu_max" value="12"/><br />
+                    <input type="text" id="dropdownID" name="mem_max" value="12"/><br />
+                    <input type="text" id="dropdownID" name="dsk_max" value="256"/><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- limit-get -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/limits/get_limit', 'POST', 'limit-get')">get_limit</button>
+                </td>
+                <td>
+                  OWNER <br />
+                </td>
+                <td>
+                  <form id="limit-get">
+                    <input type="text" id="dropdownID" name="id_owner" /><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- limit-remove -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/limits/remove_limit', 'POST', 'limit-remove')">remove_limit</button>
+                </td>
+                <td>
+                  OWNER <br />
+                </td>
+                <td>
+                  <form id="limit-remove">
+                    <input type="text" id="dropdownID" name="id_owner" /><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- limit-list -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/limits/list_limits', 'POST', 'limits-list')">list_limits</button>
+                </td>
+                <td>
+                </td>
+                <td>
+                  <form id="limits-list">
+                  </form>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div id="admin" class="tab-content">
+          <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+              <tr>
+                <th>Action</th>
+                <th>Param_Names</th>
+                <th>Param_Values</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- admin-assign-object-to-user -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/admin/assign_obj_to_user', 'POST', 'admin-assign-obj-to-user')">assign_obj_to_user</button>
+                </td>
+                <td>
+                  OBJID <br />
+                  OWNER <br />
+                </td>
+                <td>
+                  <form id="admin-assign-obj-to-user">
+                    <input list="defaultobjectlist" id="dropdownID" name="id" /><br />
+                    <input type="text" name="owner" /><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- admin-assign-app-to-user -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/admin/assign_app', 'POST', 'admin-assign-app')">assign_app</button>
+                </td>
+                <td>
+                  APPID <br />
+                  OWNER <br />
+                </td>
+                <td>
+                  <form id="admin-assign-app">
+                    <input list="defaultapplist" id="dropdownID" name="appid" /><br />
+                    <input type="text" name="owner" /><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- admin tasklist -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/admin/tasklist', 'POST', 'admin-tasks-list')">tasklist</button>
+                </td>
+                <td>
+                  ID_OWNER<br />
+                  ID_OBJECT<br />
+                  ID_INSTANCE<br />
+                  STATE<br />
+               </td>
+                <td>
+                  <form id="admin-tasks-list">
+                    <input type="text" name="id_owner" value=""><br />
+                    <input list="defaultobjectlist" id="dropdownID" name="id_object" /><br />
+                    <input type="text" name="id_instance" value=""><br />
+                    <select name="state">
+                      <option value="all">All</option>
+                      <option value="running">Running</option>
+                      <option value="final">Finalized</option>
+                    </select><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- admin task stop -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/admin/taskstop', 'POST', 'admin-tasks-stop')">taskstop</button>
+                </td>
+                <td>
+                  ID_OWNER<br />
+                  ID_TASK<br />
+                  ID_OBJECT<br />
+                  ID_INSTANCE<br />
+               </td>
+                <td>
+                  <form id="admin-tasks-stop">
+                    <input type="text" name="id_owner" value=""><br />
+                    <input type="text" name="id_task" value=""><br />
+                    <input list="defaultobjectlist" id="dropdownID" name="id_object" /><br />
+                    <input type="text" name="id_instance" value=""><br />
+                  </form>
+                </td>
+              </tr>
+
+              <!-- adm-monitor-info -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/admin/get_monitor_info', 'POST', 'adm-monitor-info')">adm_monitor_info</button>
+                </td>
+                <td>
+                </td>
+                <td>
+                  <form id="adm-monitor-info">
+                    <input type="text" name="id_owner" value=""><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- adm-monitor-info-tasks -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/admin/get_monitor_info_tasks', 'POST', 'adm-monitor-info-tasks')">adm_monitor_info_tasks</button>
+                </td>
+                <td>
+                </td>
+                <td>
+                  <form id="adm-monitor-info-tasks">
+                    <input type="text" name="id_owner" value=""><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- adm-monitor-info-apps -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/admin/get_monitor_info_apps', 'POST', 'adm-monitor-info-apps')">adm_monitor_info_apps</button>
+                </td>
+                <td>
+                </td>
+                <td>
+                  <form id="adm-monitor-info-apps">
+                    <input type="text" name="id_owner" value=""><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- adm-monitor-info-files -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/admin/get_monitor_info_files', 'POST', 'adm-monitor-info-files')">adm_monitor_info_files</button>
+                </td>
+                <td>
+                </td>
+                <td>
+                  <form id="adm-monitor-info-files">
+                    <input type="text" name="id_owner" value=""><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- adm-monitor-info-websockets -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/admin/get_monitor_info_websockets', 'POST', 'adm-monitor-info-websockets')">monitor_info_sockets</button>
+                </td>
+                <td>
+                </td>
+                <td>
+                  <form id="adm-monitor-info-websockets">
+                    <input type="text" name="id_owner" value=""><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- adm-monitor-info-host -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/admin/get_monitor_info_host', 'POST', 'adm-monitor-info-host')">adm_monitor_info_host</button>
+                </td>
+                <td>
+                </td>
+                <td>
+                  <form id="adm-monitor-info-host">
+                  </form>
+                </td>
+              </tr>
+              <!-- monitor-info-objects -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/admin/get_monitor_info_objects', 'POST', 'adm-monitor-info-objects')">adm_monitor_info_objects</button>
+                </td>
+                <td>
+                </td>
+                <td>
+                  <form id="adm-monitor-info-objects">
+                    <input type="text" name="id_owner" value=""><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- adm-monitor-info-utilization -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/admin/get_monitor_info_utilization', 'POST', 'adm-monitor-info-utilization')">adm_monitor_info_utilization</button>
+                </td>
+                <td>
+                </td>
+                <td>
+                  <form id="adm-monitor-info-utilization">
+                    <input type="text" name="id_owner" value=""><br />
+                  </form>
+                </td>
+              </tr>
+              <!-- adm-monitor-info-limits -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/admin/get_monitor_info_limits', 'POST', 'adm-monitor-info-limits')">adm_monitor_info_limits</button>
+                </td>
+                <td>
+                </td>
+                <td>
+                  <form id="adm-monitor-info-limits">
+                    <input type="text" name="id_owner" value=""><br />
+                  </form>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+        <div id="db" class="tab-content">
+          <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+              <tr>
+                <th>Action</th>
+                <th>Param_Names</th>
+                <th>Param_Values</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- admin-assign-object-to-user -->
+              <tr>
+                <td>
+                  <button type="button"
+                    onclick="submitForm('{{hostproto}}://{{hostip}}:{{hostport}}/manager/dbtest', 'POST', 'manager-dbtest')">dbtest</button>
+                </td>
+                <td>
+                  OBJID <br />
+                  OWNER <br />
+                </td>
+                <td>
+                  <form id="manager-dbtest">
+                  </form>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      <!-- Result section in the left column -->
+      <div class="result-section">
+        <textarea id="request" rows="10" style="width: 98%"></textarea>
+        <textarea id="response" rows="10" style="width: 98%; overflow: auto;"></textarea>
+      </div>
+    </div>
+
+    <div id="viewer-column" class="right-column active">
+      <div id="viewer-wrapper">
+        <iframe id="viewer" src="" ></iframe>
+    </div>
+  </div>
+  <script>
+    function showTab(tabId, column) {
+      // Hide all tab contents for the specified column
+      let tabContents = document.querySelectorAll(`.${column}-column .tab-content`);
+      tabContents.forEach(tab => tab.classList.remove('active'));
+
+      // Remove active class from all tab links of the specified column
+      let tabLinks = document.querySelectorAll(`.${column}-column .tab-links button`);
+      tabLinks.forEach(tab => tab.classList.remove('active'));
+
+      // Show the clicked tab content
+      document.getElementById(tabId).classList.add('active');
+
+      // Add active class to clicked tab link
+      let activeTabLink = Array.from(tabLinks).find(tab => tab.getAttribute('onclick').includes(`'${tabId}'`));
+      if (activeTabLink) activeTabLink.classList.add('active');
+    }
+    updateDashboard('{{hostproto}}://{{hostip}}:{{hostport}}/monitoring/dashboard_info');
+  </script>
+</body>
+
+</html>
+
+

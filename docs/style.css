@@ -1,0 +1,13 @@
+/* add indentation in the API docs to make the structure simpler */
+.doc-children .doc-contents {
+    padding-left: 2em;
+}
+
+/* in doctests, let the user copy+paste
+ * without selecting the ">>>" and "..." markers
+ * gp = Generic Prompt
+ * go = Generic Output is the doctest output and shouldn't be ignored
+ */
+.highlight .gp {
+    user-select: none;
+}

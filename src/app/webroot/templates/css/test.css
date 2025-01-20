@@ -1,0 +1,29 @@
+body {
+  margin: 0px;
+  padding: 0px;
+}
+#testid {
+  display: inline-block;
+  margin: 0px;
+  padding: 0px;
+  background: lightblue;
+}
+#results {
+  width: 100%;
+}
+#error {
+  width: 100%;
+  height: 100%;
+}
+.fixed-width-element {
+  margin: 0px;
+  padding: 0px;
+  display: inline-block;
+  width: 100px;
+}
+.max-width-element {
+  margin: 0px;
+  padding: 0px;
+  display: inline-block;
+  width: 100%;
+}

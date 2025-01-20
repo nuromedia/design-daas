@@ -1,0 +1,88 @@
+from enum import Enum
+
+
+class PluginName(Enum):
+    DB = "db"
+    PROXY = "proxy"
+    EXTENSIONS = "extensions"
+    MESSAGING = "messaging"
+    INFO = "info"
+    ADMIN = "admin"
+    AUTH = "auth"
+    NODE = "node"
+    FILE = "file"
+    CEPH = "ceph"
+    CONTAINER = "container"
+    VM = "vm"
+    PHASES = "phases"
+    INSTANCES = "instances"
+    TESTING = "testbackend"
+
+
+class BackendName(Enum):
+    EXTENSIONS = "extensions"
+    DB = "db"
+    TASK = "task"
+    PROXY = "proxy"
+    MESSAGING = "messaging"
+    INFO = "info"
+    ADMIN = "admin"
+    AUTH = "auth"
+    NODE = "node"
+    LIMITS = "limits"
+    FILE = "file"
+    CEPH = "ceph"
+    CONTAINER = "container"
+    VM = "vm"
+    PHASES = "phases"
+    INSTANCES = "instances"
+    TESTING = "testbackend"
+
+
+class LayerName(Enum):
+    DB = "db"
+    LIMIT = "limits"
+    TASK = "task"
+    TESTING = "testing"
+
+
+class ConfigFile(Enum):
+    EXTENSIONS = "extensions.toml"
+    CONTAINER = "container.toml"
+    PROXY = "proxy.toml"
+    VM = "vm.toml"
+    FILE = "files.toml"
+    CEPH = "ceph.toml"
+    DB = "db.toml"
+    NODE = "node.toml"
+    AUTH = "auth.toml"
+    INFO = "info.toml"
+    LIMITS = "limits.toml"
+    LOG = "logging.toml"
+    MESSAGING = "messaging.toml"
+
+
+class ConfigSections(Enum):
+    EXTENSIONS = "extensions"
+    PROXY_VIEWER = "viewer"
+    MESSAGING = "instances"
+    MESSAGING_QUEUE = "inst_queue"
+    MESSAGING_SSH = "inst_ssh"
+    LIMITS = "limits"
+    DB = "db"
+    SAMPLES = "samples"
+    LOG = "log"
+    AUTH = "auth"
+    AUTH_LOCAL = "local"
+    AUTH_REMOTE = "remote"
+    HOST_DNS = "host_dns"
+    HOST_SSH = "host_ssh"
+    INFO_SYS = "sys"
+    VM_API = "vm_api"
+    VM_REST = "vm_rest"
+    VM_HTTP = "vm_http"
+    CONTAINER_REQUEST = "container_request"
+    CONTAINER_SERVICES = "service_containers"
+    FILES_STORE = "filestore"
+    CEPH_STORE = "cephstore"
+    CEPH_DAASFS = "cephstore.daasfs"

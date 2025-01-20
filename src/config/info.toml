@@ -1,0 +1,28 @@
+[sys]
+known_daas_containers = [
+  "daas-0-guacd",
+  "daas-frontend",
+  "daas-0-rabbit",
+  "daas-0-service",
+]
+known_daas_images = [
+  # "debian",
+  "x11vnc",
+  "wine",
+  "daas-0-guacd",
+  "daas-0-rabbit",
+  "daas-0-service",
+  "design-daas-application-frontend-web",
+]
+known_daas_vms = []
+excluded_object_properties = [
+  "id_proxmox",
+  "stateinfo",
+  "os_password",
+  "os_username",
+  "vnc_username",
+  "vnc_password",
+  "vnc_port_instance",
+  "vnc_port_system",
+]
+system_object_owner = 0

@@ -1,0 +1,72 @@
+---
+site_name: Documentation
+
+theme:
+  name: "material"
+  features:
+    - navigation.instant # faster
+    - navigation.sections # structure the navigation in the left sidebar
+    - navigation.indexes # make every entry in the left sidebar link to a page
+    - navigation.top # quickly get back to the top of the page
+    - navigation.footer # next/prev links in footer
+
+markdown_extensions:
+  - attr_list
+  - toc:
+      permalink: true # clickable permalink in each section title
+  - pymdownx.highlight # syntax highlighting
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid # diagram support
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+extra_css:
+  - style.css
+
+nav:
+  - Home: README.md
+  - Guide:
+      - Whole system overview: backend-overview.md
+  - Architecture:
+      - architecture/README.md
+      - Proxy: architecture/proxy.md
+      - Authentication: authentication.md
+      - Limitations: architecture/limitations.md
+  - Configuration: config.md
+  - Rest Api: rest.md
+  - Internal API: reference/
+
+watch:
+  - docs
+  - mkdocs.yml
+  - src/scripts/gen_apidocs.py # for auto-generating API docs
+  - src # since API docs are derived from source code
+plugins:
+  - with-pdf
+  - autorefs
+  - search
+  - gen-files:
+      scripts:
+        - src/scripts/gen_apidocs.py
+  - literate-nav:
+      nav_file: SUMMARY.md
+  - mkdocstrings:
+      default_handler: python
+      custom_templates: docs/templates
+      handlers:
+        python:
+          paths: ["."]
+          options:
+            show_category_heading: true
+            show_root_heading: true
+            show_root_full_path: true
+            show_symbol_type_heading: true
+            show_symbol_type_toc: true
+            inherited_members: true
+            members_order: source
+            merge_init_into_class: true
+            show_if_no_docstring: true
+            signature_crossrefs: true
+            show_signature_annotations: true
+            docstring_section_style: list

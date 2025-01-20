@@ -1,0 +1,16 @@
+[limits]
+enable_overcommit = true
+enable_fallback_userlimit = true
+log_verification = true
+sys_max_vms = 10
+sys_max_img = 100
+sys_max_obj = 110
+sys_cpu_max = 60
+sys_mem_max = 28884901888
+sys_dsk_max = 674877906944
+flb_max_vms = 10
+flb_max_img = 10
+flb_max_obj = 20
+flb_cpu_max = 20
+flb_mem_max = 18884901888        # 4GB=4294967296, 12GB=12884901888
+flb_dsk_max = 474877906944       # 128GB=137438953472, 256GB=274877906944

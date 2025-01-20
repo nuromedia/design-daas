@@ -1,0 +1,22 @@
+{% extends "_base/module.html" %}
+{% block children %}
+    {# Add a list of all submodules (without recursing into them) before rendering members. #}
+    {% if module.modules %}
+        {% if config.show_category_heading %}
+            {% filter heading(heading_level, id=html_id ~ "-modules") %}Submodules{% endfilter %}
+        {% endif %}
+        <ul>
+        {% for m in module.modules|sort(attribute="path") %}
+            <li>
+                <code>{{ module.modules[m].path | crossref(brief=False) }}</code>
+                {% if module.modules[m].docstring is defined %}
+                -
+                {{ module.modules[m].docstring.lines | first | default("no description") }}
+                {% endif %}
+            </li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+
+    {{ super() }}
+{% endblock children %}

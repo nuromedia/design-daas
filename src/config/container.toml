@@ -1,0 +1,52 @@
+[container_request]
+host = "192.168.123.111"
+wait_services_ms = 0
+# default_vnc_port = 5900
+logrequest = true
+
+
+[service_containers]
+# IMAGE, NAME, OPTS, CPUS, MEMORY
+service_containers = [
+  [
+    "daas-0-guacd",
+    "daas-0-guacd",
+    [
+      "-p 127.0.0.1:4822:4822",
+    ],
+    2,
+    2147483648,
+  ],
+  [
+    "daas-0-mariadb",
+    "daas-0-db",
+    [
+      "-p 127.0.0.1:3306:3306",
+      "-v db/mariadb:/var/lib/mysql:rw",
+    ],
+    2,
+    2147483648,
+  ],
+  [
+    "daas-0-rabbit",
+    "daas-0-rabbit",
+    [
+      "-p 172.17.0.1:4369:4369",
+      "-p 172.17.0.1:5672:5672",
+    ],
+    2,
+    2147483648,
+  ],
+  [
+    "daas-0-extensions",
+    "daas-0-extensions",
+    [
+      "-p 127.0.0.1:631:631",
+      "-p 127.0.0.1:8010:8010",
+      "-p 127.0.0.1:8020:8020",
+
+    ],
+    2,
+    2147483648,
+  ],
+]

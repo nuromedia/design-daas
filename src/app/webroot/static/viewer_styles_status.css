@@ -1,0 +1,102 @@
+.status-outer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background: white;
+}
+.status-inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 640px;
+  height: 480px;
+  margin: 0;
+  padding: 0;
+}
+.status-logo {
+  display: block;
+  border: 0px solid rgba(0, 0, 0, 0.1);
+  background-image: url("/static/DESIGNLogo.png");
+  background-size: cover;
+  width: 400px;
+  height: 132px;
+}
+.status-spinnerwrap {
+  width: 60px;
+  height: 60px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  display: block;
+}
+.status-spinner {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-left-color: #333;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  margin: 0px;
+  padding: 0px;
+  animation: spin 1s linear infinite;
+  display: none;
+}
+.status-msgwrap {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  border: 0px solid rgba(0, 0, 0, 0.1);
+}
+
+.status-icon {
+  text-align: center;
+  display: block;
+  justify-content: center;
+  align-items: center;
+  border: 0px solid rgba(0, 0, 0, 0.1);
+  font-size: 50px;
+  width: 50px;
+  height: 50px;
+  margin: 0px;
+}
+
+.status-title {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  width: 100%;
+  font-size: 1.3em;
+  line-height: 1.3em;
+}
+.status-hint {
+  display: flex;
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+  margin-top: 10px;
+  align-items: center;
+  font-size: 0.8em;
+  line-height: 1em;
+}
+.status-label {
+  background: white;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: 400px;
+  background: lightgray;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

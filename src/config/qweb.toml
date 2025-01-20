@@ -1,0 +1,38 @@
+[sys]
+data_path = "data"
+
+[cors]
+enabled = true
+allow_origin = "*"
+allow_headers = "*"
+allow_methods = "*"
+allow_credentials = false
+
+[handler]
+enable_debugging = true
+enable_testing = true
+enable_timings = false
+enable_exceptions_echo = false
+enable_args_echo = false
+recursion_limit = 10000
+
+[run]
+debug = true
+host = "0.0.0.0"
+port = 5000
+
+[quart]
+config_folder = "config"
+webroot_folder = "app/webroot"
+template_folder = "app/webroot/templates"
+static_folder = "app/webroot/static"
+
+[ssl]
+enabled = true
+certfile = "keys/cert.pem"
+keyfile = "keys/key.pem"
+
+[template_args]
+hostproto = "https"
+hostip = "pve1.cluster.local"
+hostport = 443

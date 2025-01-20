@@ -1,0 +1,6 @@
+#!/bin/bash
+echo "SIMULATING cmd for 15 seconds..."
+echo "INSTALLED BASH" > /root/install.log
+sleep 15
+
+

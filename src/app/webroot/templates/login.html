@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="/css/test.css" />
+    <script type="text/javascript" src="/js/login.js"></script>
+  </head>
+  <body>
+    <div id="testid">
+      <input
+        class="fixed-width-element"
+        type="text"
+        id="username"
+        value="testuser123@example.com"
+      />
+      <input
+        class="fixed-width-element"
+        type="password"
+        id="password"
+        value="Design.2024"
+      />
+      <input
+        class="fixed-width-element"
+        type="text"
+        id="clientid"
+        value="test-client"
+      />
+      <label for="adminscope">
+        <input type="checkbox" id="adminscope" name="acceptTerms" value="yes" />
+        Admin </label
+      ><br />
+      <button onclick="doLogin(true)" class="max-width-element">Submit</button>
+      <form id="formid" method="post" action="/debug">
+        <input type="hidden" value="" id="bearer" name="bearer" />
+      </form>
+    </div>
+  </body>
+</html>

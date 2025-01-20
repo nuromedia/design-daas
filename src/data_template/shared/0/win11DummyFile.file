@@ -1,0 +1,6 @@
+@echo off
+echo SIMULATING cmd for 10 seconds...
+echo "INSTALLED BATCH" > C:\inst.log
+timeout /t 10 /nobreak
+
+

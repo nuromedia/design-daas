@@ -1,0 +1,45 @@
+"""Proxy Backend"""
+
+from app.daas.common.enums import BackendName
+from app.daas.proxy.config import ViewerConfig
+from app.daas.proxy.proxy_registry import ProxyRegistry
+from app.qweb.service.service_context import QwebBackend
+
+
+class ProxyBackend(QwebBackend):
+    """Proxy backend"""
+
+    cfg_proxy: ViewerConfig
+    component: ProxyRegistry
+
+    def __init__(
+        self,
+        cfg_proxy: ViewerConfig,
+    ):
+        self.cfg_proxy = cfg_proxy
+        self.component = ProxyRegistry(self.cfg_proxy)
+        QwebBackend.__init__(
+            self, name=BackendName.PROXY.value, component=self.component
+        )
+
+    def status(self) -> str:
+        """Returns status message"""
+        state = "Inactive"
+        if self.connected and self.registered:
+            state = "Active"
+        return f"{state}"
+
+    async def connect(self) -> bool:
+        """Connects adapter"""
+        if self.component is not None:
+            self.connected = self.component.connect()
+            return self.connected
+        return False
+
+    async def disconnect(self) -> bool:
+        """Disconnects adapter"""
+        if self.component is not None:
+            self.component.disconnect()
+            self.connected = self.component.connected
+            return True
+        return False

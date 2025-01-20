@@ -1,0 +1,10 @@
+[extensions]
+displayname = "design-printer"
+prefix_printer_user = "printer"
+service_ip = ""
+service_port_cups = 631
+service_port_printer = 8010
+service_port_audio = 8080
+service_proto_printer = "ws://"
+service_container = "daas-0-extensions"
+update_service_ip = true

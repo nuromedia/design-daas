@@ -1,0 +1,6 @@
+*.iso
+*.qcow2
+/src/data/
+/site/
+/installer/**/id_rsa*
+__pycache__/

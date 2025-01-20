@@ -1,0 +1,15 @@
+[cephstore]
+enabled = false
+
+[cephstore.daasfs]
+enabled = false
+name = "daasfs"
+user = "admin"
+folder_public = "public"
+folder_shared = "shared"
+folder_user = "user"
+folder_keyrings = "data/ceph/keyrings"
+folder_mount = "data/ceph/mount"
+mappings_public = { name = "public", src = "/public", dst_linux = "/mnt/public", dst_win = "x" }
+mappings_shared = { name = "shared", src = "/shared", dst_linux = "/mnt/shared", dst_win = "y" }
+mappings_user = { name = "user", src = "/user", dst_linux = "/mnt/user", dst_win = "z" }

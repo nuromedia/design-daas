@@ -1,0 +1,25 @@
+[db]
+database = "daas-web-db.sqlite"
+admin_credentials = "admin:admin"
+include_samples = true
+enable_echo = false
+data_path = "db"
+db_type = "sqlite"
+db_name = "mergedb"
+db_user = "root"
+db_pass = "my-secret-pw"
+db_host = "127.0.0.1"
+db_port = 3306
+
+[samples]
+shared_owner = 0
+shared_owner_name = "shared"
+test_owner = 0
+test_owner_name = "test"
+default_owner = 0
+default_owner_name = "admin"
+default_resolution = "max"
+persist_files = true
+persist_apps = true
+persist_objects = true
+persist_session = true

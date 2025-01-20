@@ -1,0 +1,14 @@
+[host_dns]
+prefixmac = "de:ad:be:ef:00"
+prefixip = "192.168.123"
+dnsmasqhosts = "/etc/dnsmasq.d/pve-hosts.conf"
+
+[host_ssh]
+sshuser = "root"
+sshhost = "localhost"
+sshport = 22
+sshopt_timeout = 1
+sshopt_strictcheck = "no"
+sshopt_nohostauth = "yes"
+logcmd = true
+logresult = false

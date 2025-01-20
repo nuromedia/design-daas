@@ -1,0 +1,17 @@
+{
+  "name": "vncservice",
+  "version": "1.0.0",
+  "description": "VNC service for audio and printer",
+  "main": "index.js",
+  "scripts": {
+    "startDev": "nodemon index.js"
+  },
+  "author": "alex",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "express-ws": "^5.0.2",
+    "nodemon": "^3.1.4"
+  }
+}

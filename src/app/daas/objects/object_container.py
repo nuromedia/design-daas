@@ -103,7 +103,7 @@ class ContainerObject(ContainerConfigBase):
             if object_mode != "":
                 self.object_mode = "run-app"
                 await self.update()
-                await asyncio.sleep(1)
+                await asyncio.sleep(3)
             if await self.execute_task(inst, env.env_target, args):
                 await self.set_extended_mode("done")
             # else:

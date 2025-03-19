@@ -4,14 +4,17 @@ TAG := x11vnc
 PORT ?= 5901
 CMD := /bin/bash -i
 QMSGDIR := ../../src/app/daas/messaging
+QINSTDIR := ../../src/app/inst
 PASSWORD := user1234
 BUILDOPT ?= 
 all: commit
 
 prepare:
 	rm -rf qmsg
-	cp -r $(QMSGDIR) qmsg
-	#sudo chmod -R a+rwx noweb
+	mkdir -p qmsg/env
+	cp -r $(QMSGDIR)/* qmsg
+	cp -r $(QINSTDIR)/* qmsg/env
+	cp /root/.ssh/id_rsa.pub authorized_keys
 
 build: | stop prepare
 	docker build $(BUILDOPT) -t $(TAG) .

@@ -1,7 +1,7 @@
 [viewer]
 guacd = "127.0.0.1:4822"
 viewer_protocol = "https"
-viewer_host = "pve1.cluster.local"
+viewer_host = "pve.cluster.local"
 viewer_port = 443
 token_length = 32
 fetch_ms = 3000

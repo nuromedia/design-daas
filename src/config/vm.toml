@@ -12,7 +12,7 @@ logrequests = true
 logresults = false
 
 [vm_api]
-node = "pve1"
+node = "pve"
 hostIp = "192.168.123.111"
 prefixip = "192.168.223"
 main_folder = "/home"
@@ -21,8 +21,8 @@ storage_img = "daas-img"
 storage_ceph = "daas-ceph"
 bridge_name_daas = "vmbr0"
 bridge_cidr_daas = "192.168.123.111/24"
-bridge_gw_daas = "192.168.123.1"
-bridge_adapter_daas = "enp0s4"
+bridge_gw_daas = ""
+bridge_adapter_daas = ""
 bridge_name_inst = "vmbr1"
 bridge_cidr_inst = "192.168.223.111/24"
 bridge_adapter_inst = ""

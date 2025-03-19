@@ -48,7 +48,7 @@ ID=0
 
 export GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no"
 rm -rf "$FRONTEND_FOLDER"
-git clone git@github.com:Nuromedia/design-daas-application-frontend.git "$FRONTEND_FOLDER"
+#git clone git@github.com:Nuromedia/design-daas-application-frontend.git "$FRONTEND_FOLDER"
 
 NAME_TEST=`cat /etc/hosts | grep "front$ID" | wc -l`
 if [[ $NAME_TEST -eq 0 ]] ; then

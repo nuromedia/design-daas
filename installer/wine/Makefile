@@ -5,18 +5,24 @@ PORT := 5900
 CMD := /bin/bash -i
 PASSWORD := user1234
 QMSGDIR := ../../src/app/daas/messaging
+QINSTDIR := ../../src/app/inst
 APP_URL := https://download-installer.cdn.mozilla.net/pub/thunderbird/releases/115.6.1/win64/de/Thunderbird%20Setup%20115.6.1.exe
+BUILDOPT ?=
 all: commit
 
 prepare:
-	cp -r $(QMSGDIR) qmsg
+	rm -rf qmsg
+	mkdir -p qmsg/env
+	cp -r $(QMSGDIR)/* qmsg
+	cp -r $(QINSTDIR)/* qmsg/env
+	cp /root/.ssh/id_rsa.pub authorized_keys
 	sudo chmod -R a+rwx qmsg
 	if [ ! -f ./app.exe ]; then \
 		curl -o app.exe $(APP_URL) ; \
 	fi
 
 build: | stop prepare
-	docker build -t $(TAG) .
+	docker build $(BUILDOPT) -t $(TAG) .
 
 start: build
 	sudo docker run -d \

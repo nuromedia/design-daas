@@ -15,7 +15,7 @@ async def run_client_hub():
         reconnect_time_client=5,
         reconnect_time_server=5,
         # force_name="ForcedName",
-        # force_ip="192.168.223.112",
+        # force_ip="192.168.223.111",
         log_topic="daas.inst",
     )
     clienthub = QHubInstance(cfg_hub, setup_logging=True)

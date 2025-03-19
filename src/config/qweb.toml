@@ -34,5 +34,5 @@ keyfile = "keys/key.pem"
 
 [template_args]
 hostproto = "https"
-hostip = "pve1.cluster.local"
+hostip = "pve.cluster.local"
 hostport = 443

@@ -14,9 +14,9 @@ chmod a+x /root/.config/qtile/autostart.sh
 # daas
 echo "export DISPLAY=:0" >> /root/.bashrc
 echo "xhost + >/dev/null" >> /root/.bashrc
+cp -r /opt/postinstall/daas /root/
 mkdir -p /root/daas/env
 mkdir -p /root/daas/status
-cp -r /opt/postinstall/daas/* /root/daas/
 cp -r /opt/postinstall/daas.jpg /root/daas/env/daas.jpg
 
 echo "[Seat:*]" > /etc/lightdm/lightdm.conf

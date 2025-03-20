@@ -4,15 +4,13 @@ VOLNAME=debian12
 INCFOLDER=cfg/debian12
 OUTFOLDER=out
 ISOFOLDER=iso
-QMSGFOLDER=../../src/app/daas/messaging/qmsg
+QMSGFOLDER=../../src/app/daas/messaging
 QINSTFOLDER=../../src/app/inst
 ISONAME=${VOLNAME}-amd64-netinst
 OUTNAME=${VOLNAME}-amd64-unattend
 INFOLDER=$OUTFOLDER/$ISONAME
 OUTFILE=$OUTFOLDER/${OUTNAME}
 URL="https://cdimage.debian.org/mirror/cdimage/archive/12.0.0/amd64/iso-cd/debian-12.0.0-amd64-netinst.iso"
-
-
 export DEBIAN_FRONTEND=noninteractive
 ROOTPASS=root
 HYBRIDMBR=/usr/lib/ISOLINUX/isohdpfx.bin
@@ -94,11 +92,12 @@ copyaddons(){
         -i "$INFOLDER/preseed.cfg"
     sed "s/root-password-again password root/root-password-again password $ROOTPASS/" \
         -i "$INFOLDER/preseed.cfg"
+    rm -rf "$INFOLDER"/postinstall/daas/qmsg
     mkdir -p "$INFOLDER"/postinstall/daas/qmsg
-    cp -r "$QMSGFOLDER"/* "$INFOLDER"/postinstall/daas/qmsg
-    cp -r "$QMSGFOLDER"/../*.py "$INFOLDER"/postinstall/daas/
-    mkdir -p "$INFOLDER"/postinstall/daas/qmsg/env
-    cp -r "$QINSTFOLDER"/* "$INFOLDER"/postinstall/daas/qmsg/env
+    mkdir -p "$INFOLDER"/postinstall/daas/env
+    cp -r "$QMSGFOLDER"/* "$INFOLDER"/postinstall/daas
+    cp -r "$QINSTFOLDER"/* "$INFOLDER"/postinstall/daas/env
+    cp /root/.ssh/id_rsa.pub "$INFOLDER"/postinstall/ssh/authorized_keys 
 }
 
 # Generate iso

@@ -139,12 +139,12 @@ class PostbootTask(Loggable):
 
     async def _add_printer(self, instance: InstanceObject):
         self._log_info(f"Adding printer for {instance.host}")
-        extensions = await get_backend_component(
-            BackendName.EXTENSIONS, ProxyExtensions
-        )
-        iswin = instance.app.os_type in ("win10", "win11")
-        result = await extensions.add_printer_instance(
-            instance.host, instance.app.id_owner, iswin
-        )
+        # extensions = await get_backend_component(
+        #     BackendName.EXTENSIONS, ProxyExtensions
+        # )
+        # iswin = instance.app.os_type in ("win10", "win11")
+        # result = await extensions.add_printer_instance(
+        #     instance.host, instance.app.id_owner, iswin
+        # )
         return True
         # return result

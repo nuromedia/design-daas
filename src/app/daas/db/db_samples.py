@@ -202,7 +202,7 @@ class SampleRegistry:
                 id_owner=owner,
                 name="deb12Calc",
                 version="1.2.3",
-                id_file="deb12DummyFile",
+                id_file="",
                 id_template="templateDeb12",
                 os_type="l26vm",
                 installer="gnome-calculator",

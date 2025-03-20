@@ -16,11 +16,11 @@ if [[ -f /opt/postinstall/ssh/id_rsa.pub ]] ; then
     mkdir -p /root/.ssh
     cp /opt/postinstall/ssh/id_rsa* /root/.ssh/
     chmod 0700 /root/.ssh/id_rsa*
-    cp /opt/postinstall/ssh/id_rsa.pub /root/.ssh/authorized_keys
 fi
 if [[ -f /opt/postinstall/ssh/sshd_config ]] ; then
     cp /opt/postinstall/ssh/sshd_config /etc/ssh/sshd_config
 fi
+cp /opt/postinstall/ssh/authorized_keys /root/.ssh/authorized_keys
 systemctl disable ssh.service
 
 # pulseaudio

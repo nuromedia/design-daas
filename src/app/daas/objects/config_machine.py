@@ -143,9 +143,9 @@ class MachineConfigBase(MachineEnvironmentBase):
         if ret is not None and ret.response_code == 200:
             return True
         if ret is not None:
-            self._log_error(f"Execute TASK FAILED: {ret}")
+            print(f"Execute TASK FAILED: {ret}")
         else:
-            self._log_error(f"Execute TASK FAILED: {ret}")
+            print(f"Execute TASK FAILED: {ret}")
         return False
 
     async def _get_inst_by_env(

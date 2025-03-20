@@ -81,7 +81,6 @@ class ProxmoxConfigStore(Loggable):
             "scsihw": "virtio-scsi-pci",
             "boot": "order=virtio0;sata2;",
         }
-
         return {
             "vmid": vmid,
             "name": name,

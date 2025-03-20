@@ -138,7 +138,6 @@ class InstanceObjectBase(Instance):
         Invoke client api
         """
         hub = await get_backend_component(BackendName.MESSAGING, QHubBackend)
-
         cmd = ""
         client_args = []
         arr = args.split(" ")
@@ -146,7 +145,6 @@ class InstanceObjectBase(Instance):
             cmd = arr[0]
             if len(args) > 1:
                 client_args = arr[1:]
-
         if pstools:
             is_online = hub.heartbeat_receiver.is_online(adr)
             if is_online is None:
@@ -182,9 +180,7 @@ class InstanceObjectBase(Instance):
             cmd,
             client_args,
         )
-        self._log_info(f"SEND: {cmd}")
         response: Optional[RpcResponse] = await run_sync(hub.call_rpc)(adr, req)
-        self._log_info(f"RECV: {response}")
         if response is None:
             return -1, "", "msg request failed"
 
@@ -194,7 +190,7 @@ class InstanceObjectBase(Instance):
         code = response.processor_result["code"]
         str_out = response.processor_result["std_out"]
         str_err = response.processor_result["std_err"]
-        await self.__log_request(cmd, client_args, code, str_out, str_err, ts_diff)
+        # await self.__log_request(cmd, client_args, code, str_out, str_err, ts_diff)
         return (code, str_out, str_err)
 
     async def _get_commandline_pstools(self, session: int, user: str, password: str):
@@ -227,6 +223,7 @@ class InstanceObjectBase(Instance):
     ) -> tuple[int, str, str]:
         """Invoke a command line via ssh"""
         adapter = await self.create_adapter(adr)
+        # self._log_info(f"SCP UPLOAD: {adapter} -> {adr}")
         code, str_out, str_err = await run_sync(adapter.scp_upload_call)(src, dst)
         return code, str_out, str_err
 

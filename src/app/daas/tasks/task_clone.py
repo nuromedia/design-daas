@@ -56,6 +56,8 @@ class CloneTask(CloneTaskBase):
         if self.env is None:
             await self._update_error(f"Environment not created: {args['env']}")
             return False
+        await asyncio.sleep(3)
+        await self._wait_for_inst_env()
         await self._update_state(f"Created environment: {args['env']}")
         return True
 
@@ -64,7 +66,6 @@ class CloneTask(CloneTaskBase):
         await self._run_task_configure_connection()
         await self._upgrade_to_env_connection()
         await self._update_state("Configured connection")
-        # await asyncio.sleep(1)
         return True
 
     async def _configure_env(self, args: dict) -> bool:

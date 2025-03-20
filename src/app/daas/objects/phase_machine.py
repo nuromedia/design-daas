@@ -91,6 +91,14 @@ class MachinePhase(MachineBase):
         if await self.start_prepare(keep_connections) is False:
             self._log_error("start_prepare was not successful")
         api = await get_backend_component(BackendName.VM, ApiProxmox)
+        self._log_warn(f"DISKSIZE_ARGS: {args} {self.hw_disksize}")
+        # Workaround: User gives disksize in gb but automated task gives size in bytes
+        # Check if size > 0 and size/1024**3 == 0
+        # If that is the case. size was given in gb and must be converted.
+        # Reason: later functions expect bytes
+        if self.hw_disksize > 0 and int(self.hw_disksize / 1024**3) == 0:
+            self.hw_disksize = self.hw_disksize * 1024**3
+
         resp, _ = await api.prox_vmcreate(
             api.config_prox.node,
             self.id_proxmox,

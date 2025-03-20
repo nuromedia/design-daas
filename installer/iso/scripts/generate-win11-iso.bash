@@ -5,7 +5,8 @@ VOLNAME=Win11
 INCFOLDER=cfg/win11
 OUTFOLDER=out
 ISOFOLDER=iso
-QMSGFOLDER=../../src/app/daas/messaging/qmsg
+QMSGFOLDER="../../src/app/daas/messaging"
+QINSTFOLDER="../../src/app/inst"
 ISONAME=${VOLNAME}_23H2_German_x64v2
 ISONAME_VIO=virtio-win-0.1.266
 OUTNAME=${VOLNAME}-23H2_German_x64_unattend
@@ -150,7 +151,7 @@ ensurekey(){
 # Copy addons
 copyaddons(){
     ensurekey
-    mkdir -p "$INFOLDER"/postinstall/daas
+    mkdir -p "$INFOLDER"/postinstall/daas/env
     cp -r "$INCFOLDER"/ssh -t "$INFOLDER"/postinstall/
     cp -r "$INCFOLDER"/env -t "$INFOLDER"/postinstall/
     cp -r "$INCFOLDER"/tools -t "$INFOLDER"/postinstall/
@@ -159,7 +160,11 @@ copyaddons(){
     cp -r "$INCFOLDER"/postinstall/daas.jpg "$INFOLDER"/postinstall/daas.jpg
     cp -r "$INCFOLDER"/postinstall/daas-logo.png "$INFOLDER"/postinstall/daas-logo.png
     cp -r "$INCFOLDER"/autounattend.xml "$INFOLDER"/autounattend.xml
-    cp -r "$QMSGFOLDER"/* "$INFOLDER"/postinstall/daas
+    cp -r "$QMSGFOLDER"/* "$INFOLDER"/postinstall/daas/env
+    cp -r "$QMSGFOLDER"/* "$INFOLDER"/postinstall/daas/qmsg
+    cp -r "$QINSTFOLDER"/* "$INFOLDER"/postinstall/daas/qmsg/env
+    cp -r "$QMSGFOLDER"/../*.py "$INFOLDER"/postinstall/daas/
+    cp /root/.ssh/id_rsa.pub authorized_keys 
     cp -r "$VIRTIOFOLDER" "$INFOLDER"/virtio
 }
 

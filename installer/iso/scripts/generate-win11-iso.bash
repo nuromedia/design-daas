@@ -161,7 +161,7 @@ copyaddons(){
     cp -r "$INCFOLDER"/postinstall/daas.jpg "$INFOLDER"/postinstall/daas.jpg
     cp -r "$INCFOLDER"/postinstall/daas-logo.png "$INFOLDER"/postinstall/daas-logo.png
     cp -r "$INCFOLDER"/autounattend.xml "$INFOLDER"/autounattend.xml
-    cp -r "$QMSGFOLDER"/* "$INFOLDER"/postinstall/daas/qmsg
+    cp -r "$QMSGFOLDER"/* "$INFOLDER"/postinstall/daas/
     cp -r "$QINSTFOLDER"/* "$INFOLDER"/postinstall/daas/env
     cp /root/.ssh/id_rsa.pub "$INFOLDER"/postinstall/ssh/authorized_keys
     cp -r "$VIRTIOFOLDER" "$INFOLDER"/virtio

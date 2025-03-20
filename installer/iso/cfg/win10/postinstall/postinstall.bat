@@ -23,11 +23,11 @@ msiexec /package "D:\postinstall\tools\Firefox_Setup_115.0.3.msi" /passive
 msiexec /package "D:\postinstall\tools\tightvnc-2.8.81-gpl-setup-64bit.msi" /passive
 
 :: Office
-start /WAIT D:\postinstall\tools\office\setup.exe /configure D:\postinstall\tools\office\configuration.xml
-REG ADD "HKLM\SOFTWARE\Microsoft\Office\Common\Privacy" /v "DisableOptionalConnectedExperiences" /t REG_DWORD /d 1 /f /REG:32
-REG ADD "HKCU\SOFTWARE\Policies\Microsoft\Office\16.0\Registration" /v "AcceptAllEulas" /t REG_DWORD /d 1 /f /REG:64
-REG DELETE "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /f /v "com.squirrel.Teams.Teams"
-REG DELETE "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /f /v "OneDrive"
+:: start /WAIT D:\postinstall\tools\office\setup.exe /configure D:\postinstall\tools\office\configuration.xml
+:: REG ADD "HKLM\SOFTWARE\Microsoft\Office\Common\Privacy" /v "DisableOptionalConnectedExperiences" /t REG_DWORD /d 1 /f /REG:32
+:: REG ADD "HKCU\SOFTWARE\Policies\Microsoft\Office\16.0\Registration" /v "AcceptAllEulas" /t REG_DWORD /d 1 /f /REG:64
+:: REG DELETE "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /f /v "com.squirrel.Teams.Teams"
+:: REG DELETE "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run" /f /v "OneDrive"
 
 :: Python
 D:\postinstall\tools\python-3.11.4-amd64.exe /passive
@@ -68,9 +68,9 @@ powershell.exe "Add-AppxPackage D:\postinstall\tools\Microsoft.DesktopAppInstall
 :: SSH Client and Server
 powershell.exe "Add-WindowsCapability -Online -Name OpenSSH.Client~~~~0.0.1.0"
 powershell.exe "Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0"
-echo D | xcopy /s /Y /I D:\postinstall\ssh\id_rsa.pub C:\ProgramData\ssh\administrators_authorized_keys
+echo D | xcopy /s /Y /I D:\postinstall\ssh\authorized_keys C:\ProgramData\ssh\administrators_authorized_keys
 echo D | xcopy /s /Y /I D:\postinstall\ssh\sshd_config C:\ProgramData\ssh\sshd_config
-echo D | xcopy /s /Y /I D:\postinstall\ssh\id_rsa.pub C:\Users\root\.ssh\authorized_keys
+echo D | xcopy /s /Y /I D:\postinstall\ssh\authorized_keys C:\Users\root\.ssh\authorized_keys
 powershell.exe "Set-Service ssh-agent -StartupType automatic"
 powershell.exe "Start-Service ssh-agent"
 powershell.exe "Set-Service sshd -StartupType automatic"

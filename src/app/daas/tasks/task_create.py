@@ -53,6 +53,8 @@ class CreateTask(CloneTaskBase):
         if self.env is None:
             await self._update_error(f"Environment not created: {args['env']}")
             return False
+        await asyncio.sleep(3)
+        await self._wait_for_inst_env()
         await self._update_state(f"Created environment: {args['env']}")
         return True
 

@@ -151,6 +151,7 @@ ensurekey(){
 # Copy addons
 copyaddons(){
     ensurekey
+    mkdir -p "$INFOLDER"/postinstall/daas/qmsg
     mkdir -p "$INFOLDER"/postinstall/daas/env
     cp -r "$INCFOLDER"/ssh -t "$INFOLDER"/postinstall/
     cp -r "$INCFOLDER"/env -t "$INFOLDER"/postinstall/
@@ -160,11 +161,9 @@ copyaddons(){
     cp -r "$INCFOLDER"/postinstall/daas.jpg "$INFOLDER"/postinstall/daas.jpg
     cp -r "$INCFOLDER"/postinstall/daas-logo.png "$INFOLDER"/postinstall/daas-logo.png
     cp -r "$INCFOLDER"/autounattend.xml "$INFOLDER"/autounattend.xml
-    cp -r "$QMSGFOLDER"/* "$INFOLDER"/postinstall/daas/env
     cp -r "$QMSGFOLDER"/* "$INFOLDER"/postinstall/daas/qmsg
-    cp -r "$QINSTFOLDER"/* "$INFOLDER"/postinstall/daas/qmsg/env
-    cp -r "$QMSGFOLDER"/../*.py "$INFOLDER"/postinstall/daas/
-    cp /root/.ssh/id_rsa.pub authorized_keys 
+    cp -r "$QINSTFOLDER"/* "$INFOLDER"/postinstall/daas/env
+    cp /root/.ssh/id_rsa.pub "$INFOLDER"/postinstall/ssh/authorized_keys
     cp -r "$VIRTIOFOLDER" "$INFOLDER"/virtio
 }
 

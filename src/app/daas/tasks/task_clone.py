@@ -66,6 +66,7 @@ class CloneTask(CloneTaskBase):
         await self._run_task_configure_connection()
         await self._upgrade_to_env_connection()
         await self._update_state("Configured connection")
+        await asyncio.sleep(2)
         return True
 
     async def _configure_env(self, args: dict) -> bool:

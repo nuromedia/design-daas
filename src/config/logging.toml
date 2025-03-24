@@ -1,6 +1,6 @@
 [log]
 enabled = true
-log_level = "INFO"
+log_level = "DEBUG"
 log_dir = "logs"
 log_prefix = "%(asctime)s-%(levelname)1.1s-%(name)-9.9s :"
 log_message = "%(message)s"

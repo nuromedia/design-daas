@@ -209,6 +209,7 @@ class DaasBaseObject(DaasObject):
         from app.daas.db.database import Database
 
         dbase = await get_database(Database)
+        self._log_debug(f"CONTYPE: {contype}")
         self.viewer_contype = contype
         await dbase.update_daas_object(self)
 

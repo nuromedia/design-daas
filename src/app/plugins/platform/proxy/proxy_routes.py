@@ -130,6 +130,24 @@ infos = [
         backends=backends,
         objects=[LayerObject("entity", DBObject.INSTBYOBJ.value, LayerName.DB.value)],
     ),
+    BlueprintInfo(
+        endpoint_id=90006,
+        name="viewer_set_screen",
+        url="/viewer/set_screen/<id_instance>",
+        methods=["POST"],
+        auth_params=AuthenticationMode.TOKEN,
+        conc_params=ConcurrencyMode.AUTH_AND_PROC,
+        processor=ProcessorType.API,
+        processor_action=ApiProcessorAction.JSON,
+        processor_task=ProxyTask.VIEWER_SET_SCREEN.value,
+        content_type="application/json",
+        request_args_mandatory=["token", "contype", "resolution", "resize", "scale"],
+        request_args_optional=[],
+        request_args_query=["id_instance"],
+        request_args_common=perf_args,
+        backends=backends,
+        objects=[LayerObject("entity", DBObject.INST.value, LayerName.DB.value)],
+    ),
 ]
 
 
@@ -158,6 +176,13 @@ async def viewer_connect():
 @handler.blueprints.post("/viewer/disconnect")
 async def viewer_disconnect():
     """Disconnects viewer"""
+    frame = inspect.currentframe()
+    return await handler.handle_frame(frame)
+
+
+@handler.blueprints.post("/viewer/set_screen/<id_instance>")
+async def viewer_set_screen(id_instance: str):
+    """Sets viewer screen settings"""
     frame = inspect.currentframe()
     return await handler.handle_frame(frame)
 

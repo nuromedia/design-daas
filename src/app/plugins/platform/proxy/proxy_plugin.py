@@ -11,6 +11,7 @@ from app.plugins.platform.proxy.proxy_tasks import (
     viewer_connect,
     viewer_disconnect,
     viewer_info,
+    viewer_set_screen,
     viewer_template,
 )
 from app.qweb.service.service_plugin import LoadOrder, PluginBase
@@ -29,6 +30,7 @@ class ProxyPlugin(PluginBase):
         self.systasks = []
         self.apitasks = [
             (ProxyTask.VIEWER_TEMPLATE.value, viewer_template),
+            (ProxyTask.VIEWER_SET_SCREEN.value, viewer_set_screen),
             (ProxyTask.VIEWER_CHECK.value, viewer_check),
             (ProxyTask.VIEWER_INFO.value, viewer_info),
             (ProxyTask.VIEWER_PROXY_WS.value, proxy_ws),

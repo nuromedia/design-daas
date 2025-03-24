@@ -4,6 +4,8 @@ from dataclasses import asdict, dataclass
 from datetime import timedelta
 from enum import Enum
 from typing import Optional
+from app.daas.common.model import GuacamoleConnection
+from app.daas.vm.proxmox.ProxmoxApi import ApiProxmox
 from quart import render_template, websocket
 from app.daas.common.ctx import (
     create_response_url_start,
@@ -34,6 +36,7 @@ class ProxyTask(Enum):
     """Proxy processor tasktype"""
 
     VIEWER_TEMPLATE = "VIEWER_TEMPLATE"
+    VIEWER_SET_SCREEN = "VIEWER_SET_SCREEN"
     VIEWER_CHECK = "VIEWER_CHECK"
     VIEWER_INFO = "VIEWER_INFO"
     VIEWER_PROXY_WS = "VIEWER_PROXY_WS"
@@ -220,6 +223,69 @@ async def viewer_info(args: TaskArgs) -> QwebResult:
     return QwebResult(404, {}, 4, "Unknown error")
 
 
+async def viewer_set_screen(args: TaskArgs) -> QwebResult:
+    """Sets viewer screen settings"""
+    from app.daas.db.database import Database
+
+    lg = Loggable(LogTarget.PROXY)
+    lg._log_debug("ENTRY")
+
+    dbase = await get_database(Database)
+    reqargs = args.req.request_context.request_args
+    entity = get_request_object_optional(args.ctx, "entity", InstanceObject)
+    if entity is not None and entity.id_con is not None:
+        lg._log_debug("ENTITY")
+        instance = await dbase.get_instance_by_id(reqargs["id_instance"])
+        if instance is None:
+            return QwebResult(400, {}, 1, "No instance")
+        lg._log_debug("INSTANCE")
+        conn = await dbase.get_guacamole_connection(entity.id_con)
+        if conn is None:
+            return QwebResult(400, {}, 1, "No connection")
+        lg._log_debug("CONN")
+        if await _update_connection_protocol(instance, conn, reqargs):
+            return QwebResult(200, {})
+    return QwebResult(400, {}, 1, "Unknown error on set_screen")
+
+
+async def _update_connection_protocol(
+    instance: InstanceObject, conn: GuacamoleConnection, args: dict
+) -> bool:
+    from app.daas.db.database import Database
+
+    lg = Loggable(LogTarget.PROXY)
+    lg._log_debug(f"ARGS: {args}")
+    dbase = await get_database(Database)
+    dirty = False
+    api = await get_backend_component(BackendName.VM, ApiProxmox)
+
+    if args["contype"] is not None:
+        if args["contype"] == "instvnc":
+            conn.protocol = "vnc"
+            conn.port = 5900
+            conn.hostname = instance.host
+            conn.user = instance.app.vnc_username
+            conn.password = instance.app.vnc_password
+            dirty = True
+        elif args["contype"] == "sysvnc":
+            conn.protocol = "vnc"
+            conn.port = 5900 + instance.app.id_proxmox
+            conn.hostname = api.config_prox.hostIp
+            conn.user = instance.app.vnc_username
+            conn.password = instance.app.vnc_password
+            dirty = True
+        elif args["contype"] == "rdp":
+            conn.protocol = "rdp"
+            conn.port = 3389
+            conn.hostname = instance.host
+            conn.user = instance.app.os_username
+            conn.password = instance.app.os_password
+            dirty = True
+    if dirty:
+        await dbase.update_connection_protocol(conn)
+    return True
+
+
 class ProxmoxVncHandler(ResizeHandler, Loggable):
     """Resizehandler for Proxmox-VNC"""
 
@@ -301,3 +367,80 @@ async def proxy_ws(args: TaskArgs):
         )
 
     raise TypeError(f"no HTTP proxy support for {type(instance.app)=}")
+
+
+#
+# @bp.post("/viewer/set_screen/<id>")
+# async def viewer_set_screen(id: str):
+#     """
+#     Endpoint for js clients to store preferred viewer settings
+#     """
+#     ctx = get_context()
+#     dbase = await ctx.get_database()
+#     args = {"id": id, "id_env": ""}
+#     args = await optional_form_args(
+#         args, ["token", "contype", "resolution", "resize", "scale"]
+#     )
+#     instance = await get_related_instance_by_args(ctx, args["id"], args["id_env"])
+#     if await verify_entity_ownership(instance) is False:
+#         return respond_error(request, str({"id": id}), 403, "Invalid owner")
+#     # verified = await verify_endpoint(inspect.currentframe())
+#     # if verified is False:
+#     #     return respond_error(request, str(args), 403, "Endpoint not granted")
+#
+#     # Check args
+#     if instance is None:
+#         return respond_error(request, str(args), 405, "No Instance")
+#
+#     if isinstance(instance.app, (ContainerObject, MachineObject)):
+#         conn = await dbase.get_guacamole_connection(instance.id_con)
+#         if conn is None:
+#             msg = f"Connection not found={instance.id}"
+#             __log_error(msg, 404)
+#             return respond_error(request, str(args), 404, msg)
+#         if conn.viewer_token != args["token"]:
+#             msg = f"Token invalid={args['token']}"
+#             __log_error(msg, 403)
+#             return respond_error(request, str(args), 403, msg)
+#
+#         # Update settings
+#         await __update_object_settings(instance.app, args)
+#         await __update_connection_protocol(instance, conn, args)
+#
+#     return respond_ok(request, str(args))
+#
+#
+# async def __update_connection_protocol(
+#     instance: Instance, conn: GuacamoleConnection, args: dict
+# ):
+#     ctx = get_context()
+#     cfg = ctx.config
+#     dbase = await ctx.get_database()
+#     dirty = False
+#
+#     if args["contype"] is not None:
+#         if args["contype"] == "instvnc":
+#             conn.protocol = "vnc"
+#             conn.port = 5900
+#             conn.hostname = instance.host
+#             conn.user = instance.app.vnc_username
+#             conn.password = instance.app.vnc_password
+#             dirty = True
+#         elif args["contype"] == "sysvnc":
+#             conn.protocol = "vnc"
+#             conn.port = 5900 + instance.app.id_proxmox
+#             conn.hostname = cfg.prox_api.hostIp
+#             conn.user = instance.app.vnc_username
+#             conn.password = instance.app.vnc_password
+#             dirty = True
+#         elif args["contype"] == "rdp":
+#             conn.protocol = "rdp"
+#             conn.port = 3389
+#             conn.hostname = instance.host
+#             conn.user = instance.app.os_username
+#             conn.password = instance.app.os_password
+#             dirty = True
+#     if dirty:
+#         await dbase.update_connection_protocol(conn)
+#
+#

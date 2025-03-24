@@ -27,7 +27,7 @@ TEST_ITER?=10
 TEST_SLEEP?=1
 # TEST_DOMAIN?="http://localhost:4444"
 # TEST_DOMAIN?="https://cluster.daas-design.de:5000"
-TEST_DOMAIN?="https://pve1.cluster.local"
+TEST_DOMAIN?="https://pve.cluster.local"
 # ------------------------------------------------------------------------------
 # --- Help
 # ------------------------------------------------------------------------------

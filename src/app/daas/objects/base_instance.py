@@ -168,6 +168,9 @@ class InstanceObjectBase(Instance):
             str_err = response.processor_result["std_err"]
             await self.__log_request(cmd, client_args, code, str_out, str_err, ts_diff)
             return (code, str_out, str_err)
+
+        # Test if online
+        # await asyncio.sleep(1)
         is_online = hub.heartbeat_receiver.is_online(adr)
         if is_online is False:
             return -1, "", "No heartbeat"

@@ -109,8 +109,8 @@ class MachineObject(MachineConfigBase):
             if object_mode != "":
                 self.object_mode = "run-app"
                 await self.update()
-            if await self.execute_task(inst, env.env_target, args):
-                await self.set_extended_mode("done")
+            await self.execute_task(inst, env.env_target, args)
+            await self.set_extended_mode("done")
             return await self._return_connected_instance(connect)
         return None
 

@@ -94,9 +94,11 @@ class ContainerConfigBase(ContainerEnvironmentBase):
         if env is not None:
             name = env.name
         for file in files:
+            self._log_info(f"Upload to folder: {file.localpath} {self.id}")
             await store.upload_to_docker_folder(
                 file.localpath, file.name, self.id, self.id_owner
             )
+            self._log_info(f"Upload env file: {files} {installers}")
             await store.create_docker_envfile(
                 self.id, userid, self.id, name, files, installers
             )

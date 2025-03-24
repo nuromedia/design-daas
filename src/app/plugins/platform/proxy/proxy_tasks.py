@@ -227,22 +227,16 @@ async def viewer_set_screen(args: TaskArgs) -> QwebResult:
     """Sets viewer screen settings"""
     from app.daas.db.database import Database
 
-    lg = Loggable(LogTarget.PROXY)
-    lg._log_debug("ENTRY")
-
     dbase = await get_database(Database)
     reqargs = args.req.request_context.request_args
     entity = get_request_object_optional(args.ctx, "entity", InstanceObject)
     if entity is not None and entity.id_con is not None:
-        lg._log_debug("ENTITY")
         instance = await dbase.get_instance_by_id(reqargs["id_instance"])
         if instance is None:
             return QwebResult(400, {}, 1, "No instance")
-        lg._log_debug("INSTANCE")
         conn = await dbase.get_guacamole_connection(entity.id_con)
         if conn is None:
             return QwebResult(400, {}, 1, "No connection")
-        lg._log_debug("CONN")
         if await _update_connection_protocol(instance, conn, reqargs):
             return QwebResult(200, {})
     return QwebResult(400, {}, 1, "Unknown error on set_screen")
@@ -253,8 +247,6 @@ async def _update_connection_protocol(
 ) -> bool:
     from app.daas.db.database import Database
 
-    lg = Loggable(LogTarget.PROXY)
-    lg._log_debug(f"ARGS: {args}")
     dbase = await get_database(Database)
     dirty = False
     api = await get_backend_component(BackendName.VM, ApiProxmox)

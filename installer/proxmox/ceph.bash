@@ -18,7 +18,7 @@ FS_DAASNAME=daasfs
 ACTION="install"
 # Read options
 while getopts ":a:n:d:" o; do
-    case "${o}" in
+    case "$o" in
         a)
             ACTION=${OPTARG}
             ;;
@@ -36,10 +36,10 @@ done
 shift $((OPTIND-1))
 
 # Bail if requirements are not met
-if  [ -z "$CEPH_NETWORK" ] ; then
+if  [ "$CEPH_NETWORK" = "" ] ; then
     usage
 fi
-if  [ -z "$ACTION" ] ; then
+if  [ "$ACTION" = "" ] ; then
     usage
 fi
 
@@ -80,7 +80,7 @@ create_pool() {
 create_cephfs_daas() {
     pveceph mds create --name "$FS_DAASNAME"
     pveceph mds create --name "${FS_DAASNAME}-standby"
-    pveceph fs create -name $FS_DAASNAME -add-storage 0  -pg_num 16
+    pveceph fs create -name "$FS_DAASNAME" -add-storage 0  -pg_num 16
 }
 
 action_ceph() {

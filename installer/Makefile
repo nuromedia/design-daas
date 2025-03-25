@@ -158,7 +158,7 @@ proxmox-default: | proxmox-install proxmox-configure \
 	proxmox-isogen proxmox-isoupload
 proxmox-install:
 	./proxmox/install.bash -i $(HOST_IP) -h $(HOST_NAME) -d $(HOST_DOMAIN)
-proxmox-install-ceph: proxmox-configure
+proxmox-install-ceph: #proxmox-configure
 	./proxmox/ceph.bash -a ceph -n $(CEPH_NETWORK)
 proxmox-install-ceph-osd:
 	./proxmox/ceph.bash -a osd -n $(CEPH_NETWORK) -d $(CEPH_DISK)

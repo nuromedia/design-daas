@@ -321,39 +321,38 @@ class InstanceObjectBase(Instance):
         self._log_info(msg)
 
     #
-    # async def _invoke_filesystem_cmd(
-    #     self, adr: str, invocation_type: str, args: list[str], pstools: bool
-    # ) -> tuple[int, str, str]:
-    #     if pstools:
-    #         cmd = "C:/Users/root/daas/env/pstools/psexec.exe"
-    #         # cmd = "python"
-    #         client_args = [
-    #             " -nobanner",
-    #             "-accepteula",
-    #             "-i",
-    #             "1",
-    #             "-u",
-    #             "root",
-    #             "-p",
-    #             "root",
-    #             "cmd.exe",
-    #             "/c",
-    #             "start",
-    #             "pythonw",
-    #             "C:/Users/root/daas/env/CommandProxy.py",
-    #             "filesystem",
-    #             invocation_type,
-    #         ]
-    #         client_args.extend(args)
-    #     else:
-    #         cmd = "python3"
-    #         client_args = [
-    #             "/root/daas/env/CommandProxy.py",
-    #             "filesystem",
-    #             invocation_type,
-    #         ]
-    #         # if wine:
-    #         #     client_args.append("wine")
-    #         client_args.extend(args)
-    #     return await self._invoke_ssh_cmd(adr, cmd, client_args)
-    #
+    async def _invoke_filesystem_cmd(
+        self, adr: str, invocation_type: str, args: list[str], pstools: bool
+    ) -> tuple[int, str, str]:
+        if pstools:
+            cmd = "C:/Users/root/daas/env/pstools/psexec.exe"
+            # cmd = "python"
+            client_args = [
+                " -nobanner",
+                "-accepteula",
+                "-i",
+                "1",
+                "-u",
+                "root",
+                "-p",
+                "root",
+                "cmd.exe",
+                "/c",
+                "start",
+                "pythonw",
+                "C:/Users/root/daas/env/CommandProxy.py",
+                "filesystem",
+                invocation_type,
+            ]
+            client_args.extend(args)
+        else:
+            cmd = "python3"
+            client_args = [
+                "/root/daas/env/CommandProxy.py",
+                "filesystem",
+                invocation_type,
+            ]
+            # if wine:
+            #     client_args.append("wine")
+            client_args.extend(args)
+        return await self._invoke_ssh_cmd(adr, cmd, client_args)

@@ -112,20 +112,19 @@ class InstancePhase(InstanceObjectBase):
             return QwebResult(200, {}, 0, f"{msg}{err}")
         return QwebResult(400, {}, 1, "Error on invoke_ssh()")
 
-    # async def inst_vmstatus(self, adr: str):
-    #     """Invoke a status action via client api"""
-    #     return await self._invoke_instance(adr, "status", "", False)
-    #
-    # async def inst_vmversion(self, adr: str):
-    #     """Invoke a version action via client api"""
-    #     return await self._invoke_instance(adr, "version", "", False)
-    #
-    # async def inst_vminvoke_fs(
-    #     self, adr: str, cmd: str, args: list[str], pstools: bool
-    # ) -> tuple[int, str, str]:
-    #     """Filesystem command"""
-    #     code, str_out, str_err = await self._invoke_filesystem_cmd(
-    #         adr, cmd, args, pstools
-    #     )
-    #     return code, str_out, str_err
-    #
+    async def inst_vmstatus(self, adr: str):
+        """Invoke a status action via client api"""
+        return await self._invoke_instance(adr, "status", "", False)
+
+    async def inst_vmversion(self, adr: str):
+        """Invoke a version action via client api"""
+        return await self._invoke_instance(adr, "version", "", False)
+
+    async def inst_vminvoke_fs(
+        self, adr: str, cmd: str, args: list[str], pstools: bool
+    ) -> tuple[int, str, str]:
+        """Filesystem command"""
+        code, str_out, str_err = await self._invoke_filesystem_cmd(
+            adr, cmd, args, pstools
+        )
+        return code, str_out, str_err
